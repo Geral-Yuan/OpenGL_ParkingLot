@@ -1,18 +1,19 @@
-#include "Figure.h"
-Rectangle::Rectangle(Vec *v1, Vec *v2, double r, double g, double b)
+#include "parking_lot.h"
+Rec::Rec(Vec anchor, Vec v1, Vec v2, double r, double g, double b) : v1(0, 0), v2(0, 0)
 {
+	this->anchor = anchor;
 	this->v1 = v1;
 	this->v2 = v2;
 	this->r = r;
 	this->g = g;
 	this->b = b;
 }
-void Rectangle::draw()
+void Rec::draw()
 {
-	Vec p1 = anchor + *v1;
-	Vec p2 = anchor + *v2;
-	Vec p3 = anchor - *v1;
-	Vec p4 = anchor - *v2;
+	Vec p1 = anchor + v1;
+	Vec p2 = anchor + v2;
+	Vec p3 = anchor - v1;
+	Vec p4 = anchor - v2;
 	glColor3f(r, g, b);
 	glBegin(GL_QUADS);
 	glVertex2d(p1.getX(), p1.getY());
@@ -21,14 +22,15 @@ void Rectangle::draw()
 	glVertex2d(p4.getX(), p4.getY());
 	glEnd();
 }
-void Rectangle::zoom(double k)
+void Rec::zoom(double k)
 {
 	anchor = anchor * k;
-	*v1 = *v1 * k;
-	*v2 = *v2 * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
 }
-Trapezium::Trapezium(Vec *v1, Vec *v2, Vec *v3, Vec *v4, double r, double g, double b)
+Trapezium::Trapezium(Vec anchor, Vec v1, Vec v2, Vec v3, Vec v4, double r, double g, double b) : v1(0, 0), v2(0, 0), v3(0, 0), v4(0, 0)
 {
+	this->anchor = anchor;
 	this->v1 = v1;
 	this->v2 = v2;
 	this->v3 = v3;
@@ -39,10 +41,10 @@ Trapezium::Trapezium(Vec *v1, Vec *v2, Vec *v3, Vec *v4, double r, double g, dou
 }
 void Trapezium::draw()
 {
-	Vec p1 = anchor + *v1;
-	Vec p2 = anchor + *v2;
-	Vec p3 = anchor + *v3;
-	Vec p4 = anchor + *v4;
+	Vec p1 = anchor + v1;
+	Vec p2 = anchor + v2;
+	Vec p3 = anchor + v3;
+	Vec p4 = anchor + v4;
 	glColor3f(r, g, b);
 	glBegin(GL_QUADS);
 	glVertex2d(p1.getX(), p1.getY());
@@ -54,13 +56,14 @@ void Trapezium::draw()
 void Trapezium::zoom(double k)
 {
 	anchor = anchor * k;
-	*v1 = *v1 * k;
-	*v2 = *v2 * k;
-	*v3 = *v3 * k;
-	*v4 = *v4 * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
+	v3 = v3 * k;
+	v4 = v4 * k;
 }
-Triangle::Triangle(Vec *v1, Vec *v2, Vec *v3, double r, double g, double b)
+Triangle::Triangle(Vec anchor, Vec v1, Vec v2, Vec v3, double r, double g, double b) : v1(0, 0), v2(0, 0), v3(0, 0)
 {
+	this->anchor = anchor;
 	this->v1 = v1;
 	this->v2 = v2;
 	this->v3 = v3;
@@ -70,9 +73,9 @@ Triangle::Triangle(Vec *v1, Vec *v2, Vec *v3, double r, double g, double b)
 }
 void Triangle::draw()
 {
-	Vec p1 = anchor + *v1;
-	Vec p2 = anchor + *v2;
-	Vec p3 = anchor + *v3;
+	Vec p1 = anchor + v1;
+	Vec p2 = anchor + v2;
+	Vec p3 = anchor + v3;
 	glColor3f(r, g, b);
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2d(p1.getX(), p1.getY());
@@ -83,27 +86,28 @@ void Triangle::draw()
 void Triangle::zoom(double k)
 {
 	anchor = anchor * k;
-	*v1 = *v1 * k;
-	*v2 = *v2 * k;
-	*v3 = *v3 * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
+	v3 = v3 * k;
 }
-Polygon::Polygon(int n, double R, double r, double g, double b)
+Poly::Poly(Vec anchor, int n, double R, double r, double g, double b)
 {
+	this->anchor = anchor;
 	this->n = n;
 	this->R = R;
 	this->r = r;
 	this->g = g;
 	this->b = b;
 }
-void Polygon::draw()
+void Poly::draw()
 {
 	glColor3f(r, g, b);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < n; i++)
-		glVertex2d(anchor.getX() + R * cos(2 * M_PI * i / n), anchor.getY() + R * sin(2 * M_PI * i / n));
+		glVertex2d(anchor.getX() + R * cos(2 * PI * i / n), anchor.getY() + R * sin(2 * PI * i / n));
 	glEnd();
 }
-void Polygon::zoom(double k)
+void Poly::zoom(double k)
 {
 	R *= k;
 }
