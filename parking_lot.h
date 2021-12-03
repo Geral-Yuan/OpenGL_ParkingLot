@@ -1,6 +1,6 @@
 //
 //  carpark.h
-//  
+//
 //
 //  Created by Elaine Liu on 2021/12/2.
 //
@@ -23,10 +23,69 @@
 #include <GL/freeglut.h>
 #endif
 
-#include <math.h>
+#include <cmath>
 #include <iostream>
 
 using namespace std;
+#define PI acos(-1) /* pi */
+
+class Vec {
+private:
+    float x, y;
+
+public:
+    Vec(float _x, float _y)
+    {
+        x = _x;
+        y = _y;
+    }
+    float getX() { return x; }
+    float getY() { return y; }
+
+    // Example Overloads + operator
+    // returns the sum of 2 Vec
+    Vec operator+(Vec v)
+    {
+        return Vec(x + v.x, y + v.y);
+    }
+
+    // Overload - on 2 Vectors
+    // return thier difference Vector
+    Vec operator-(Vec v)
+    {
+        return Vec(x - v.x, y - v.y);
+    }
+
+    // Overload * operator on a float k
+    // return current Vector scaled by k
+    Vec operator*(float k)
+    {
+        return Vec(x * k, y * k);
+    }
+
+    // Overload * on 2 Vectors
+    // return thier inner product (scaler product)
+    float operator*(Vec v)
+    {
+        return x * v.x + y * v.y;
+    }
+
+    // Overload << on an angle
+    // return current vector rotated counter clockwise
+    // by this angle
+    Vec operator<<(double theta)
+    {
+        return Vec(x * cos(theta) - y * sin(theta), x * sin(theta) + y * cos(theta));
+    }
+
+    // Overload >> on an angle
+    // return current vector rotated clockwise
+    // by this angle
+    Vec operator>>(double theta)
+    {
+        return Vec(x * cos(theta) + y * sin(theta), -x * sin(theta) + y * cos(theta));
+    }
+};
 
 enum v_type {CAR, VAN, MOTOR, BIKE};
 enum slot_state {EMPTY,OCCUPIED};
@@ -43,7 +102,7 @@ public:
     virtual ~Figure() {}
     
 protected:
-    Vec* anchor;
+    Vec anchor;
 };
 
 //Vehicle is a figure having other figures
@@ -55,15 +114,13 @@ public:
     void move(Vec* dir);
     //rotate a vehicle
     void rotate(double angle);
-    //calculate the price for parking
-    int get_price(int in_time, int out_time);
-    virtual ~Figure() {}
+    virtual ~Vehicle() = 0;
 protected:
     //a vehicle consists of basic shapes
-    Figure Shape[10] = {0};
+    Figure* Shape[10] = {0};
     //a vector showing the vehicles's heading direction
-    Vec* x_dir;
-    Vec* y_dir;
+    Vec x_dir;
+    Vec y_dir;
 };
 
 //those that is vehicle
@@ -108,7 +165,7 @@ public:
 protected:
     int time;
     v_type type;
-}
+};
 
 
 class Arr_ticket : public Ticket{
@@ -123,27 +180,32 @@ public:
     void print(){
         string vehicle[4] = {"Car", "Van", "Motorcycle", "Bike"};
         cout << "----------Arrival Ticket----------" << endl;
-        cout << "Time of arrival: " << duration << ";" << endl;
+        cout << "Time of arrival: " << time << ";" << endl;
         cout << "Type of vehicle: " << vehicle[type] << ";" << endl;
-        cout << "Empty slot: " <<  << ";" << endl;
+        cout << "Empty slot: "<< ";" << endl;
     }
 private:
     //every enter ticket is linked to the anchor of a slot
     Vec* anchor;
-}
+};
 
-class Dep_ticket : public Ticker{
+class Dep_ticket : public Ticket{
 public:
-    //generate a departure ticket
+    //generate a departure ticket with time: duration
     Dep_ticket(int _time, v_type _type){
-        duration = _time;
+        time = _time;
         type = _type;
+    }
+    //calculate the price
+    void cal_price(){
+        int type_prize[4] = {10,20,30,40};
+        price = type_prize[type]*time;
     }
     //print
     void print(){
         string vehicle[4] = {"Car", "Van", "Motorcycle", "Bike"};
         cout << "----------Departure Ticket----------" << endl;
-        cout << "Time spent in the parking lot: " << duration << ";" << endl;
+        cout << "Time spent in the parking lot: " << time << ";" << endl;//duration
         cout << "Type of vehicle: " << vehicle[type] << ";" << endl;
         cout << "Price: " << price << ";" << endl;
     }
@@ -151,5 +213,5 @@ public:
     void set_price(int _price){price = _price;}
 private:
     int price;
-}
+};
 #endif /* PARKING_LOT_H */
