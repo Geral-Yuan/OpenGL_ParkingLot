@@ -20,6 +20,8 @@
 #elif __linux__
 #include <GL/freeglut.h>
 #endif
+#include <cstdlib>
+#include <ctime>
 #include <cmath>
 #include <iostream>
 using namespace std;
@@ -115,8 +117,8 @@ class Vehicle : public Figure
 public:
 	Vehicle() : x_dir(0, 0), y_dir(0, 0) {}
 	virtual void draw() = 0;
-	virtual void move(Vec dir) = 0;
-	virtual void rotate(double angle) = 0;
+	void move(Vec dir);
+	void rotate(double angle);
 	Vec getxDir() { return x_dir; }
 	Vec getyDir() { return y_dir; }
 	void SetDir(Vec x_d, Vec y_d)
@@ -142,8 +144,6 @@ public:
 	Car(Vec anchor, Vec x_dir, Vec y_dir);
 	//draw a car
 	void draw();
-	void move(Vec dir);
-	void rotate(double angle);
 	~Car();
 };
 class Van : public Vehicle
@@ -153,6 +153,7 @@ public:
 	Van(Vec anchor, Vec x_dir, Vec y_dir);
 	//draw a car
 	void draw();
+	~Van();
 };
 class Bicycle : public Vehicle
 {
@@ -161,6 +162,7 @@ public:
 	Bicycle(Vec anchor, Vec x_dir, Vec y_dir);
 	//draw a car
 	void draw();
+	~Bicycle();
 };
 class Motorcycle : public Vehicle
 {
@@ -169,6 +171,7 @@ public:
 	Motorcycle(Vec anchor, Vec x_dir, Vec y_dir);
 	//draw a car
 	void draw();
+	~Motorcycle();
 };
 
 class Ticket
@@ -203,7 +206,8 @@ public:
 		cout << "----------Arrival Ticket----------" << endl;
 		cout << "Time of arrival: " << time << ";" << endl;
 		cout << "Type of vehicle: " << vehicle[type] << ";" << endl;
-		cout << "Empty slot: " << ";" << endl;
+		cout << "Empty slot: "
+			 << ";" << endl;
 	}
 
 private:

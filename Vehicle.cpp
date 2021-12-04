@@ -1,14 +1,19 @@
 #include "parking_lot.h"
+void Vehicle::move(Vec dir)
+{
+	anchor = anchor + dir * 0.1;
+}
+void Vehicle::rotate(double angle)
+{
+	x_dir = x_dir << angle;
+	y_dir = y_dir << angle;
+}
 Car::Car(Vec anchor, Vec x_dir, Vec y_dir)
 {
 	this->anchor = anchor;
 	this->x_dir = x_dir;
 	this->y_dir = y_dir;
-	double L = 4;
-	double H = 1;
-	double d = 2;
-	double s = 0.5;
-	double R = 0.3;
+	double L = 4, H = 1, d = 2, s = 0.5, R = 0.3;
 	Vec v1 = y_dir * (-H / 2);
 	Vec v2 = y_dir * (H / 2);
 	Vec v3 = x_dir * (-d / 2) + y_dir * (-H);
@@ -34,12 +39,39 @@ Car::~Car()
 	for (int i = 0; i < 4; i++)
 		delete Shape[i];
 }
-void Car::move(Vec dir)
+Van::Van(Vec anchor, Vec x_dir, Vec y_dir)
 {
-	anchor = anchor + dir * 0.1;
+	this->anchor = anchor;
+	this->x_dir = x_dir;
+	this->y_dir = y_dir;
 }
-void Car::rotate(double angle)
+void Van::draw()
 {
-	x_dir = x_dir << angle;
-	y_dir = y_dir << angle;
+}
+Van::~Van()
+{
+}
+Bicycle::Bicycle(Vec anchor, Vec x_dir, Vec y_dir)
+{
+	this->anchor = anchor;
+	this->x_dir = x_dir;
+	this->y_dir = y_dir;
+}
+void Bicycle::draw()
+{
+}
+Bicycle::~Bicycle()
+{
+}
+Motorcycle::Motorcycle(Vec anchor, Vec x_dir, Vec y_dir)
+{
+	this->anchor = anchor;
+	this->x_dir = x_dir;
+	this->y_dir = y_dir;
+}
+void Motorcycle::draw()
+{
+}
+Motorcycle::~Motorcycle()
+{
 }
