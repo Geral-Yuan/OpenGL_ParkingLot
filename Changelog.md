@@ -33,9 +33,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -
 
 
-## [m1] -- 2021-11-dd 
+## [m1] -- 2021-12-05 
 
 ### Added 
-- 
-- 
+- arrival ticket
+- departure ticket
+- price calculating
+- simple car
+- drawing of basic shapes
+- car parking
+- general outline
+- the drawing of carpark
+- basic classes definition
+- empty slots initialized
 
