@@ -1,7 +1,7 @@
 #include "parking_lot.h"
 void Vehicle::move(Vec dir)
 {
-	anchor = anchor + dir * 0.1;
+	anchor = anchor + dir;
 }
 void Vehicle::rotate(double angle)
 {
@@ -13,7 +13,7 @@ Car::Car(Vec anchor, Vec x_dir, Vec y_dir)
 	this->anchor = anchor;
 	this->x_dir = x_dir;
 	this->y_dir = y_dir;
-	double L = 4, H = 1, d = 2, s = 0.5, R = 0.3;
+	double L = 20, H = 6, d = 10, s = 3, R = 2;
 	Vec v1 = y_dir * (-H / 2);
 	Vec v2 = y_dir * (H / 2);
 	Vec v3 = x_dir * (-d / 2) + y_dir * (-H);
