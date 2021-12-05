@@ -17,7 +17,7 @@
 #include <GL/freeglut.h>
 #endif
 
-//existing libraries
+//C++ libraries
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
@@ -32,7 +32,7 @@ using namespace std;
 #include "Vector.h"
 
 //some enum for status
-enum v_type {CAR,VAN,MOTOR,BIKE};
+enum v_type{CAR,VAN,BICYCLE,MOTORCYCLE};
 enum slot_state{EMPTY,OCCUPIED};
 enum is_parked{NOT_PARKED,PARKED};
 

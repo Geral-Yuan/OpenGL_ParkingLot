@@ -9,9 +9,9 @@ void glDraw()
     //variables to be saved
 	static int t = 0; /* world time for the game; 25ms ~ 1min */
 	Vehicle *vehicle[26];
-	static slot_state slot[26] = {EMPTY};/* for slot EMPTY or OCCUPIED */
+	static slot_state slot[26] = {EMPTY}; /* for slot EMPTY or OCCUPIED */
 	static is_parked park_in[26] = {NOT_PARKED}; /* is successfully parked or not */
-	static double state[26][4];/* anchor and facing direction */
+	static double state[26][4]; /* anchor and facing direction */
 	static double distance[26];
 	static int arr_time[26]; /* arrival time for vehicles */
     
@@ -26,8 +26,8 @@ void glDraw()
 		{
             //read its current anchor and facing direction
 			Vec anchor(state[i][0], state[i][1]), x_dir(state[i][2], state[i][3]), y_dir(-state[i][3], state[i][2]);
-			//decide vehicle type
-            if (i < 12)
+            //decide vehicle type
+			if (i < 12)
 				vehicle[i] = new Car(anchor, x_dir, y_dir);
 			else if (i < 18)
 				vehicle[i] = new Van(anchor, x_dir, y_dir);
@@ -78,7 +78,7 @@ void glDraw()
 		int k = rand() % 12;
 		if (!slot[k])
 		{
-            //get the assigend slot occupied
+            //get the assigned slot occupied
 			slot[k] = OCCUPIED;
             //assign innitial index position
 			state[k][0] = 30;
@@ -86,30 +86,31 @@ void glDraw()
 			state[k][2] = 0;
 			state[k][3] = 1;
             //save the arrival time
-			arr_time[k] = t;
-            //initial generate spot
+			time[k] = t;
+            //initially generated spot
 			Vec anchor(30, -25), x_dir(0, 1), y_dir(-1, 0);
             //judge which vehicle it is and print arrival ticket
 			if (k < 12)
 			{
 				vehicle[k] = new Car(anchor, x_dir, y_dir);
 				distance[k] = 0;
-                vehicle[k]->print_arr_ticket(t, CAR, k+1);
+                vehicle[k]->print_arr_ticket(t,CAR,k+1);
 			}
 			else if (k < 18)
             {
 				vehicle[k] = new Van(anchor, x_dir, y_dir);
                 distance[k] = 0;
             }
-            else if (k < 22){
+			else if (k < 22)
+            {
 				vehicle[k] = new Bicycle(anchor, x_dir, y_dir);
                 distance[k] = 0;
             }
-            else{
+			else
+            {
 				vehicle[k] = new Motorcycle(anchor, x_dir, y_dir);
                 distance[k] = 0;
             }
-            
 		}
 	}
 	glutSwapBuffers();
@@ -126,7 +127,7 @@ int main(int argc, char *argv[])
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	gluOrtho2D(-10, 170, -40, 240);
-	srand((unsigned int)time(NULL));
+	srand((size_t)time(NULL));
 	glutDisplayFunc(glDraw);
 	glutTimerFunc(25, TimeStep, 25);
 	glutMainLoop();

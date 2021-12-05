@@ -1,17 +1,17 @@
 #include "parking_lot.h"
-//vehicles that have in common
-//vehicles can move
+//vehicles
+//motion of vehicles
 void Vehicle::move(Vec dir)
 {
 	anchor = anchor + dir;
 }
-//vehicles can rotate
+//rotation of vehicles
 void Vehicle::rotate(double angle)
 {
 	x_dir = x_dir << angle;
 	y_dir = y_dir << angle;
 }
-//vehicles get arrival tickets
+//arrival tickets printed for vehicles
 void Vehicle::print_arr_ticket(int time, v_type type, int slot_num){
     string vehicle[4] = {"Car", "Van", "Motorcycle", "Bike"};
     cout << endl << "----------Arrival Ticket----------" << endl;
@@ -21,7 +21,7 @@ void Vehicle::print_arr_ticket(int time, v_type type, int slot_num){
     cout << "Type of vehicle: " << vehicle[type] << ";" << endl;
     cout << "Slot: No."<< slot_num << ";" << endl;
 }
-//vehicles get departure ticket
+//departure tickets printed for vehicles
 void Vehicle::print_exit_ticket(int in_time, v_type type, int out_time){
     double price = cal_price(in_time,type, out_time);
     string vehicle[4] = {"Car", "Van", "Motorcycle", "Bike"};
@@ -30,7 +30,7 @@ void Vehicle::print_exit_ticket(int in_time, v_type type, int out_time){
     cout << "Type of vehicle: " << vehicle[type] << ";" << endl;
     cout << "Price: " << price << "¥;" << endl;
 }
-//vehicles get price at departure
+//price calculation at departure
 double Vehicle::cal_price(int in_time, v_type type, int out_time){
     int price_table[4] = {15,20,5,10};/* price per hour*/
     return (double)price_table[type]*(double)(out_time-in_time)/60.0;
@@ -82,14 +82,14 @@ void Van::draw()
 Van::~Van()
 {
 }
+
+//bicycle that is a vehicle
 Bicycle::Bicycle(Vec anchor, Vec x_dir, Vec y_dir)
 {
 	this->anchor = anchor;
 	this->x_dir = x_dir;
 	this->y_dir = y_dir;
 }
-
-//bicycle that is a vehicle
 void Bicycle::draw()
 {
 }
