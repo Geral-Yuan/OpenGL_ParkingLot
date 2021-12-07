@@ -1,7 +1,9 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 
-#include "parking_lot.h"
+#include "vector.h"
+enum v_type{CAR,UFO,SPACECRAFT};
+enum status_quo{GET_IN,TURN_RIGHT,ACROSS,TURN_ROUND,REACH_SLOT,BACK,PARK_IN,PARK};
 
 //class of all figures
 class Figure
@@ -81,7 +83,7 @@ protected:
 class Vehicle : public Figure
 {
 public:
-    Vehicle() : x_dir(0, 0), y_dir(0, 0) {}
+    Vehicle() : x_dir(0, 1), y_dir(-1, 0) {}
     virtual void draw() = 0;
     void move(Vec dir);
     void rotate(double angle);
@@ -94,11 +96,12 @@ public:
         y_dir = y_d;
     }
     //get status
-    status_quo getstatus(){return cur_status;}
+    status_quo Getstatus(){return cur_status;}
     //set status
-    void Setstatus(status_quo _status){
-        cur_status = _status;
-    }
+    void Setstatus(status_quo _status){cur_status = _status;}
+	void Setstep(int _step){remain_step = _step;}
+	int Getstep(){return remain_step;}
+	int Getslot(){return slot;}
     //soon deprecated ticket functions
     void print_arr_ticket(int time, v_type type, int slot_num);
     void print_exit_ticket(int in_time, v_type type, int out_time);
@@ -110,9 +113,9 @@ protected:
     //a vector showing the vehicles's heading direction
     Vec x_dir;
     Vec y_dir;
-    //calculate the price at exit
-    double cal_price(int in_time, v_type type, int out_time);
     status_quo cur_status;
+	int remain_step;
+	int slot;
 };
 
 //those that is vehicle
@@ -120,37 +123,28 @@ class Car : public Vehicle
 {
 public:
     //constructor
-    Car(Vec anchor, Vec x_dir, Vec y_dir);
+    Car(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
     //draw a car
     void draw();
     ~Car();
 };
-class Van : public Vehicle
+class UFO : public Vehicle
 {
 public:
     //constructor
-    Van(Vec anchor, Vec x_dir, Vec y_dir);
+    UFO(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
     //draw a car
     void draw();
-    ~Van();
+    ~UFO();
 };
-class Bicycle : public Vehicle
+class Spacecraft : public Vehicle
 {
 public:
     //constructor
-    Bicycle(Vec anchor, Vec x_dir, Vec y_dir);
+    Spacecraft(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
     //draw a car
     void draw();
-    ~Bicycle();
-};
-class Motorcycle : public Vehicle
-{
-public:
-    //constructor
-    Motorcycle(Vec anchor, Vec x_dir, Vec y_dir);
-    //draw a car
-    void draw();
-    ~Motorcycle();
+    ~Spacecraft();
 };
 
 #endif /* FIGURE_H */
