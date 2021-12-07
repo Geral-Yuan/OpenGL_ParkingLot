@@ -20,24 +20,16 @@
 //C++ libraries
 #include <cstdlib>
 #include <ctime>
-#include <cmath>
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <getopt.h>
 using namespace std;
 
-//constant definition
-#define PI acos(-1) /* pi */
-
 //define vector class for anchors
 #include "vector.h"
 
 //some enum for status
-enum v_type{CAR,UFO,SPACECRAFT};
-enum slot_state{EMPTY,OCCUPIED};
-enum is_parked{NOT_PARKED,PARKED};
-enum status_quo{FORWARD,F2B,BACK,RIGHT,LEFT};
 
 //define all figures
 #include "figure.h"
@@ -45,14 +37,13 @@ enum status_quo{FORWARD,F2B,BACK,RIGHT,LEFT};
 //draw the parking area
 void parking_area_draw();
 
-
 //singleton trial
 class single_park{
 private:
     int slot_num;
+	int empty_slot_num;
     vector<Vehicle*> all_vehicles;
-    slot_state* all_slots;
-    is_parked* park_in;
+    int* slots_order;
     single_park(){}
     ~single_park(){}
 public:
@@ -71,12 +62,21 @@ public:
     }
     //set the slot per row
     void set_slot(int _slot){
-        slot_num = _slot;
-        all_slots = new slot_state[_slot]{};
-        park_in = new is_parked[_slot]{};
+        slot_num = 2 * _slot;
+		empty_slot_num = slot_num;
+        slots_order = new int[slot_num]{};
+		for (int i = 0; i < slot_num; i++)
+			slots_order[i] = i;
     }
+	//free the memory allocated
+	void delete_slot(){
+		delete[] slots_order;
+	}
     //draw the car park
     void draw();
+	void generate_vehicle();
+	void move_vehicle();
+	void delete_vehicle();
 };
 
 #endif /* PARKING_LOT_H */

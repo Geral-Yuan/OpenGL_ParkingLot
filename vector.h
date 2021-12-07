@@ -1,5 +1,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
+#include <cmath>
+//constant definition
+#define PI acos(-1) /* pi */
 //basic class vec for anchors
 class Vec
 {
