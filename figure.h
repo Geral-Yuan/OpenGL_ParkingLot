@@ -85,6 +85,7 @@ public:
     virtual void draw() = 0;
     void move(Vec dir);
     void rotate(double angle);
+    //get and set position info
     Vec getxDir() { return x_dir; }
     Vec getyDir() { return y_dir; }
     void SetDir(Vec x_d, Vec y_d)
@@ -92,6 +93,13 @@ public:
         x_dir = x_d;
         y_dir = y_d;
     }
+    //get status
+    status_quo getstatus(){return cur_status;}
+    //set status
+    void Setstatus(status_quo _status){
+        cur_status = _status;
+    }
+    //soon deprecated ticket functions
     void print_arr_ticket(int time, v_type type, int slot_num);
     void print_exit_ticket(int in_time, v_type type, int out_time);
     virtual ~Vehicle(){};
@@ -104,6 +112,7 @@ protected:
     Vec y_dir;
     //calculate the price at exit
     double cal_price(int in_time, v_type type, int out_time);
+    status_quo cur_status;
 };
 
 //those that is vehicle

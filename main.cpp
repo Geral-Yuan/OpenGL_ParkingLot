@@ -1,4 +1,5 @@
 #include "parking_lot.h"
+
 void TimeStep(int n)
 {
 	glutTimerFunc(25, TimeStep, n);
@@ -6,20 +7,14 @@ void TimeStep(int n)
 }
 void glDraw()
 {
-    //variables to be saved
-	static int t = 0; /* world time for the game; 25ms ~ 1min */
-	Vehicle *vehicle[26];
-	static slot_state slot[26] = {EMPTY}; /* for slot EMPTY or OCCUPIED */
-	static is_parked park_in[26] = {NOT_PARKED}; /* is successfully parked or not */
-	static double state[26][4]; /* anchor and facing direction */
-	static double distance[26];
-	static int arr_time[26]; /* arrival time for vehicles */
+    single_park* carpark_map = single_park::get_instance();
     
     //drawing part
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //draw the parking lot
-    parking_area_draw();
+    carpark_map->draw();
     //draw all the vehicles
+    /*
 	for (int i = 0; i < 26; i++)
         //if the car is assigned a slot
 		if (slot[i])
@@ -37,6 +32,7 @@ void glDraw()
 				vehicle[i] = new Motorcycle(anchor, x_dir, y_dir);
 			//Realize cars' park.
             //if not parked in
+            int distance[26];
 			if (!park_in[i])
 			{
 				if ((i < 5 && distance[i] < 50 + 24 + 5 + 20 * (i + 1)) || (i == 5 && distance[i] < 50 + 24 + 90 + 24 - 1) || (i > 5 && i < 12 && distance[i] < 50 + 24 + 90 + 24 + 24 + 5 + 20 * (i - 6)))
@@ -86,7 +82,7 @@ void glDraw()
 			state[k][2] = 0;
 			state[k][3] = 1;
             //save the arrival time
-			time[k] = t;
+			arr_time[k] = t;
             //initially generated spot
 			Vec anchor(30, -25), x_dir(0, 1), y_dir(-1, 0);
             //judge which vehicle it is and print arrival ticket
@@ -113,21 +109,38 @@ void glDraw()
             }
 		}
 	}
+     */
 	glutSwapBuffers();
 	glFlush();
-	t++;
 }
+
 int main(int argc, char *argv[])
 {
+    //use commandline argument to specify the number of slots per row
+    int slot_num_per_row = 6;
+    char c  = 0;
+    while((c = getopt(argc,argv,"n:")) != -1){
+        switch(c){
+            case 'n':
+                slot_num_per_row = atoi(optarg);
+                break;
+        }
+    }
+    //initialize a singleton parking lot with its slot number per row
+    single_park* carpark_map = single_park::get_instance();
+    carpark_map->set_slot(slot_num_per_row);
 	glutInit(&argc, argv);
-	glutInitWindowSize(468, 728);
+    //set the window size accoring to user input
+	glutInitWindowSize((20*slot_num_per_row+80)*3, 510);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_RGB);
-	glutCreateWindow("Hello, Car!");
+    //create the window and clear the background
+	glutCreateWindow("INTERSTELLAR PARKING LOT");
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	gluOrtho2D(-10, 170, -40, 240);
-	srand((size_t)time(NULL));
+    //set the range of the x&y axis
+	gluOrtho2D(-40, 20*slot_num_per_row+40, -50, 120);
+	srand((unsigned int)time(NULL));
 	glutDisplayFunc(glDraw);
 	glutTimerFunc(25, TimeStep, 25);
 	glutMainLoop();
