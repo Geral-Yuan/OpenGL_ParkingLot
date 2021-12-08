@@ -30,14 +30,14 @@ void Car::draw()
     Vec v4 = x_dir * (d / 2) + y_dir * (-H);
     Vec v11 = x_dir * (L / 2) + y_dir * (H / 2);
     Vec v12 = x_dir * (L / 2) + y_dir * (-H / 2);
-    Shape[0] = new Rec(anchor + v1, v11, v12, 0, 1, 0);
+    Shape[0] = new Rec(anchor + v1, v11, v12, 0.67, 0.51, 1);
     Vec v21 = x_dir * (d / 2) + y_dir * (H / 2);
     Vec v22 = x_dir * (d / 2 + s) + y_dir * (-H / 2);
     Vec v23 = x_dir * (-d / 2 - s) + y_dir * (-H / 2);
     Vec v24 = x_dir * (-d / 2) + y_dir * (H / 2);
-    Shape[1] = new Trapezium(anchor + v2, v21, v22, v23, v24, 0, 0, 1);
-    Shape[2] = new Poly(anchor + v3, 80, R, 1, 0, 0);
-    Shape[3] = new Poly(anchor + v4, 80, R, 1, 0, 0);
+    Shape[1] = new Trapezium(anchor + v2, v21, v22, v23, v24, 0.54, 0.54, 0.54);
+    Shape[2] = new Poly(anchor + v3, 80, R, 0.1, 0.1, 0.1);
+    Shape[3] = new Poly(anchor + v4, 80, R, 0.1, 0.1, 0.1);
     for (int i = 0; i < 4; i++){
 		Shape[i]->draw();
         delete Shape[i];
@@ -61,7 +61,7 @@ void Ufo::draw()
     Vec l1 = anchor+ x_dir*(-3.0);
     Vec l2 = anchor+ x_dir*(2.0)+ y_dir*(7.0);
     Vec l3 = anchor+ x_dir*(5.0)+ y_dir*(-3.0);
-    glColor3d(0.5, 0.5, 0.5);
+    glColor3d(0.64, 0.82, 0.93);
     glBegin(GL_LINES);
     glVertex2d(l1.getX(), l1.getY());
     glVertex2d(l2.getX(), l2.getY());
@@ -79,7 +79,7 @@ void Ufo::draw()
     Vec v24 = x_dir*(-1.0)+ y_dir*(-4.0);
     Shape[1] = new Trapezium(anchor,v21,v22,v23,v24,0.5,0.5,0.5);
     Vec v3 = x_dir*(-3.0);
-    Shape[2] = new Half_Circle(anchor+v3,x_dir,y_dir,100,sqrt(40),0.5,0.5,0.5);
+    Shape[2] = new Half_Circle(anchor+v3,x_dir,y_dir,100,sqrt(40),0,0.54,0.54);
     for (int i = 0; i < 3; i++){
         Shape[i]->draw();
         delete Shape[i];
@@ -106,7 +106,7 @@ void Spacecraft::draw()
     Vec v12 = (x_dir*(8.0) + y_dir*(-3.0))*change;
     Vec v13 = (x_dir*(-7.0) + y_dir*(-3.0))*change;
     Vec v14 = (x_dir*(-7.0) + y_dir*(3.0))*change;
-    Shape[0] = new Trapezium(anchor,v11,v12,v13,v14,1,0.0,0.2);
+    Shape[0] = new Trapezium(anchor,v11,v12,v13,v14,1,0.5,0);
     Vec v21 = (x_dir*(1.0) + y_dir*(1.0))*change;
     Vec v22 = (x_dir*(1.0) + y_dir*(-1.0))*change;
     Vec v23 = (x_dir*(-2.0) + y_dir*(-1.0))*change;
@@ -146,4 +146,33 @@ void Spacecraft::draw()
 }
 Spacecraft::~Spacecraft()
 {
+}
+Teleported::Teleported(Vec anchor, Vec v1, Vec v2, status_quo status){
+	this->anchor = anchor;
+    this->v1 = v1;
+    this->v2 = v2;
+	this->cur_status = status;
+	color_change_time = 0;
+}
+void Teleported::draw()
+{
+	if (color_change_time == 0)
+	{
+		r=(double)rand()/(double)RAND_MAX;
+		g=(double)rand()/(double)RAND_MAX;
+		b=(double)rand()/(double)RAND_MAX;
+		color_change_time=10;
+	}
+	color_change_time--;
+	Vec p1 = anchor + v1;
+	Vec p2 = anchor + v2;
+	Vec p3 = anchor - v1;
+	Vec p4 = anchor - v2;
+	glColor3d(r, g, b);
+	glBegin(GL_QUADS);
+	glVertex2d(p1.getX(), p1.getY());
+	glVertex2d(p2.getX(), p2.getY());
+	glVertex2d(p3.getX(), p3.getY());
+	glVertex2d(p4.getX(), p4.getY());
+	glEnd();
 }
