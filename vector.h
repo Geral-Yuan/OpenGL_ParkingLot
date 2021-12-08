@@ -10,6 +10,10 @@ private:
     double x, y;
 
 public:
+    Vec(){
+        x = 0.0;
+        y = 1.0;
+    }
     Vec(double _x, double _y)
     {
         x = _x;
