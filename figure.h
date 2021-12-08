@@ -74,9 +74,20 @@ public:
     void draw();
     void zoom(double k);
 
-protected:
+private:
     int n;
     double R;
+};
+
+class Half_Circle : public ColoredFig{
+public:
+    Half_Circle(Vec anchor, Vec x_dir, Vec y_dir,  int n = 200, double R = 1, double r = 0, double g = 0, double b = 0);
+    void draw();
+private:
+    int n;
+    double R;
+    Vec x_dir;
+    Vec y_dir;
 };
 
 //Vehicle is a figure having other figures
@@ -121,6 +132,8 @@ protected:
 //those that is vehicle
 class Car : public Vehicle
 {
+private:
+    double L,H,d,s,R;
 public:
     //constructor
     Car(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
@@ -128,17 +141,36 @@ public:
     void draw();
     ~Car();
 };
-class UFO : public Vehicle
+class Ufo : public Vehicle
 {
+private:
+    int count = 0;
+    void spin(){
+        if(count++ % 10 == 0)
+            y_dir = y_dir*(-1);
+    }
 public:
     //constructor
-    UFO(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
-    //draw a car
+    Ufo(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
+    //draw a UFO
     void draw();
-    ~UFO();
+    ~Ufo();
 };
 class Spacecraft : public Vehicle
 {
+private:
+    double change = 1.00;
+    bool flag = 0;
+    void zoom(){
+        if(abs(1.25-change)<0.001)
+            flag = 1;
+        if(abs(change-0.25)<0.001)
+            flag = 0;
+        if(flag == 0)
+            change += 0.01;
+        if(flag == 1)
+            change -= 0.01;
+    }
 public:
     //constructor
     Spacecraft(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);

@@ -46,6 +46,12 @@ private:
     int* slots_order;
     single_park(){}
     ~single_park(){}
+    //delete vehicle
+    void delete_vehicle();
+    //free the memory allocated
+    void delete_slot(){
+        delete[] slots_order;
+    }
 public:
     static single_park* get_instance(){
         static single_park *parking_lot = NULL;
@@ -64,19 +70,21 @@ public:
     void set_slot(int _slot){
         slot_num = 2 * _slot;
 		empty_slot_num = slot_num;
-        slots_order = new int[slot_num]{};
+        slots_order = new int[slot_num]();
 		for (int i = 0; i < slot_num; i++)
 			slots_order[i] = i;
     }
-	//free the memory allocated
-	void delete_slot(){
-		delete[] slots_order;
-	}
     //draw the car park
     void draw();
-	void generate_vehicle();
+    //generate new vehicle
+    void generate_vehicle();
+    //move vehicle
 	void move_vehicle();
-	void delete_vehicle();
+    //delete the parking lot
+    void delete_parking_lot(){
+        delete_vehicle();
+        delete_slot();
+    }
 };
 
 #endif /* PARKING_LOT_H */

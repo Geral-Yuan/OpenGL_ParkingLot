@@ -13,9 +13,10 @@ void glDraw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//draw the parking lot
 	carpark_map->draw();
-	//draw all the vehicles
+	//generate a new vehicle
 	if (t % 300 == 0)
 		carpark_map->generate_vehicle();
+    //move and draw the vehicle
 	carpark_map->move_vehicle();
 	glutSwapBuffers();
 	glFlush();
@@ -54,8 +55,7 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(glDraw);
 	glutTimerFunc(25, TimeStep, 25);
 	glutMainLoop();
-	carpark_map->delete_slot();
-	carpark_map->delete_vehicle();
+	carpark_map->delete_parking_lot();
 	carpark_map->delete_instance();
 	return 0;
 }
