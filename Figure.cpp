@@ -14,7 +14,7 @@ void Rec::draw()
 	Vec p2 = anchor + v2;
 	Vec p3 = anchor - v1;
 	Vec p4 = anchor - v2;
-	glColor3f(r, g, b);
+	glColor3d(r, g, b);
 	glBegin(GL_QUADS);
 	glVertex2d(p1.getX(), p1.getY());
 	glVertex2d(p2.getX(), p2.getY());
@@ -45,7 +45,7 @@ void Trapezium::draw()
 	Vec p2 = anchor + v2;
 	Vec p3 = anchor + v3;
 	Vec p4 = anchor + v4;
-	glColor3f(r, g, b);
+	glColor3d(r, g, b);
 	glBegin(GL_QUADS);
 	glVertex2d(p1.getX(), p1.getY());
 	glVertex2d(p2.getX(), p2.getY());
@@ -76,7 +76,7 @@ void Triangle::draw()
 	Vec p1 = anchor + v1;
 	Vec p2 = anchor + v2;
 	Vec p3 = anchor + v3;
-	glColor3f(r, g, b);
+	glColor3d(r, g, b);
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2d(p1.getX(), p1.getY());
 	glVertex2d(p2.getX(), p2.getY());
@@ -101,7 +101,7 @@ Poly::Poly(Vec anchor, int n, double R, double r, double g, double b)
 }
 void Poly::draw()
 {
-	glColor3f(r, g, b);
+	glColor3d(r, g, b);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < n; i++)
 		glVertex2d(anchor.getX() + R * cos(2 * PI * i / n), anchor.getY() + R * sin(2 * PI * i / n));
@@ -110,4 +110,24 @@ void Poly::draw()
 void Poly::zoom(double k)
 {
 	R *= k;
+}
+
+Half_Circle::Half_Circle(Vec anchor, Vec x_dir, Vec y_dir , int n, double R, double r, double g, double b){
+    this->anchor = anchor;
+    this->n = n;
+    this->R = R;
+    this->r = r;
+    this->g = g;
+    this->b = b;
+    this->x_dir = x_dir;
+    this->y_dir = y_dir;
+}
+void Half_Circle::draw(){
+    glColor3d(r,g,b);
+    glBegin(GL_POLYGON);
+    for(int i= 0; i<n; i++){
+        Vec temp = anchor+ x_dir*(R*cos(PI*i/n-atan(3))) + y_dir*(R*sin(PI*i/n-atan(3)));
+        glVertex2d(temp.getX(),temp.getY());
+    }
+    glEnd();
 }
