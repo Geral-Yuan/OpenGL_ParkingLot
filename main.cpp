@@ -9,14 +9,31 @@ void glDraw()
 {
 	single_park *carpark_map = single_park::get_instance();
 	static int t = 0;
+	static int bar_open_time = 0;
 	//drawing part
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//draw the parking lot
 	carpark_map->draw();
 	//generate a new vehicle
 	if (t % 300 == 0)
-		carpark_map->generate_vehicle();
-    //move and draw the vehicle
+		carpark_map->generate_vehicle(&bar_open_time);
+	glColor3d(1, 0, 0);
+	glBegin(GL_LINES);
+	glVertex2d(0, 0);
+	if (bar_open_time > 0)
+	{
+		if (bar_open_time > 70)
+			glVertex2d(-25 * cos(PI / 40 * (90 - bar_open_time)), 25 * sin(PI / 40 * (90 - bar_open_time)));
+		else if (bar_open_time <= 20)
+			glVertex2d(-25 * cos(PI / 40 * bar_open_time), 25 * sin(PI / 40 * bar_open_time));
+		else
+			glVertex2d(0, 25);
+		bar_open_time -= 1;
+	}
+	else
+		glVertex2d(-25, 0);
+	glEnd();
+	//move and draw the vehicle
 	carpark_map->move_vehicle();
 	glutSwapBuffers();
 	glFlush();
