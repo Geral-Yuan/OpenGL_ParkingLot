@@ -77,7 +77,7 @@ public:
     //draw the car park
     void draw();
     //generate new vehicle
-    void generate_vehicle();
+    void generate_vehicle(int *bar_open_time);
     //move vehicle
 	void move_vehicle();
     //delete the parking lot
