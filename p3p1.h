@@ -28,7 +28,7 @@ class Van : public Vehicle {
     public:
         int countprice(int exittime);
         void printenterticket();
-        void printexitticket();
+        void printexitticket(int exittime);
 };
 
 
@@ -36,7 +36,7 @@ class Motor : public Vehicle {
     public:
         int countprice(int exittime);
         void printenterticket();
-        void printexitticket();
+        void printexitticket(int exittime);
 };
 
 
@@ -44,7 +44,7 @@ class Bike : public Vehicle {
     public:
         int countprice(int exittime);
         void printenterticket();
-        void printexitticket();
+        void printexitticket(int exittime);
 };
 
 
