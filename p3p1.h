@@ -1,16 +1,17 @@
+#ifndef P3P1_H
+#define P3P1_H
+
 #include<ctime>
 #include<iostream>
 #include <cstdlib>
 
-#ifndef P3P1_H
-#define P3P1_H
 class Vehicle {
     public:
         void generate();
         void remove();
-        virtual void printenterticket();
-        virtual void printexitticket(int exittime);
-        virtual int countprice(int exittime);
+        virtual void PrintEnterTicket();
+        virtual void PrintExitTicket(int exittime);
+        virtual int CountPrice(int exittime);
     
     protected:
         int entertime;
@@ -19,32 +20,32 @@ class Vehicle {
 
 class Car : public Vehicle {
     public:
-        int countprice(int exittime);
-        void printenterticket();
-        void printexitticket(int exittime);
+        int CountPrice(int exittime);
+        void PrintEnterTicket();
+        void PrintExitTicket(int exittime);
 };
 
 class Van : public Vehicle {
     public:
-        int countprice(int exittime);
-        void printenterticket();
-        void printexitticket(int exittime);
+        int CountPrice(int exittime);
+        void PrintEnterTicket();
+        void PrintExitTicket(int exittime);
 };
 
 
 class Motor : public Vehicle {
     public:
-        int countprice(int exittime);
-        void printenterticket();
-        void printexitticket(int exittime);
+        int CountPrice(int exittime);
+        void PrintEnterTicket();
+        void PrintExitTicket(int exittime);
 };
 
 
 class Bike : public Vehicle {
     public:
-        int countprice(int exittime);
-        void printenterticket();
-        void printexitticket(int exittime);
+        int CountPrice(int exittime);
+        void PrintEnterTicket();
+        void PrintExitTicket(int exittime);
 };
 
 
