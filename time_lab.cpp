@@ -17,9 +17,9 @@ int main()
     printLocalTimePithy();
     //threeWayPrintTime();
     //testAddTime(10000000);
-    cout << "---------------------------------" << endl;
+    /*cout << "---------------------------------" << endl;
     delaying(5);
-    printLocalTimePithy();
+    printLocalTimePithy();*/
     cout << "---------------------------------" << endl;
     chronoDelay(5);
     printLocalTimePithy();
@@ -90,8 +90,8 @@ void testAddTime(size_t num)
 }
 void chronoDelay(double second)
 {
-    const chrono::time_point start = chrono::system_clock::now();
-    chrono::time_point end = chrono::system_clock::now();
+    const chrono::time_point<chrono::system_clock> start = chrono::system_clock::now();
+    chrono::time_point<chrono::system_clock> end = chrono::system_clock::now();
     chrono::duration<double> diff = end - start;
     while( (double)diff.count() <= second)
     {
@@ -101,9 +101,9 @@ void chronoDelay(double second)
 }
 void printLocalTimePithy(){
     time_t t = time(0);
-    tm* localtimepointer = localtime(&t);
-    cout << " Current Date: " << (localtimepointer->tm_mday) << "/" << (localtimepointer->tm_mon) + 1 << "/" << (localtimepointer->tm_year) + 1900 << endl;
-    cout << " Current Time: " << (localtimepointer->tm_hour) << ":" << (localtimepointer->tm_min) << ":" << (localtimepointer->tm_sec) << endl;
+    tm* localTimePointer = localtime(&t);
+    cout << " Current Date: " << (localTimePointer->tm_mday) << "/" << (localTimePointer->tm_mon) + 1 << "/" << (localTimePointer->tm_year) + 1900 << endl;
+    cout << " Current Time: " << (localTimePointer->tm_hour) << ":" << (localTimePointer->tm_min) << ":" << (localTimePointer->tm_sec) << endl;
     cout << endl;
 }
 //reference
