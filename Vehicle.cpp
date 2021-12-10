@@ -21,24 +21,41 @@ Car::Car(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step, status_quo status
 	this->remain_step = step;
 	this->cur_status = status;
     L = 20;H = 6;d = 10;s = 3;R = 2;
+    flag = 0;
+    flag_height = 0;
 }
 void Car::draw()
 {
+    move_flag();
+    //anchors of shapes
     Vec v1 = y_dir * (-H / 2);
     Vec v2 = y_dir * (H / 2);
     Vec v3 = x_dir * (-d / 2) + y_dir * (-H);
     Vec v4 = x_dir * (d / 2) + y_dir * (-H);
+    //lower body
     Vec v11 = x_dir * (L / 2) + y_dir * (H / 2);
     Vec v12 = x_dir * (L / 2) + y_dir * (-H / 2);
-    Shape[0] = new Rec(anchor + v1, v11, v12, 0.67, 0.51, 1);
+    Shape[0] = new Rec(anchor-y_dir*2 + v1, v11, v12, 0.67, 0.51, 1);
+    //upper body
     Vec v21 = x_dir * (d / 2) + y_dir * (H / 2);
     Vec v22 = x_dir * (d / 2 + s) + y_dir * (-H / 2);
     Vec v23 = x_dir * (-d / 2 - s) + y_dir * (-H / 2);
     Vec v24 = x_dir * (-d / 2) + y_dir * (H / 2);
-    Shape[1] = new Trapezium(anchor + v2, v21, v22, v23, v24, 0.54, 0.54, 0.54);
-    Shape[2] = new Poly(anchor + v3, 80, R, 0.1, 0.1, 0.1);
-    Shape[3] = new Poly(anchor + v4, 80, R, 0.1, 0.1, 0.1);
-    for (int i = 0; i < 4; i++){
+    Shape[1] = new Trapezium(anchor-y_dir*2 + v2, v21, v22, v23, v24, 0.54, 0.54, 0.54);
+    //wheels
+    Shape[2] = new Poly(anchor-y_dir*2 + v3, 80, R, 0.1, 0.1, 0.1);
+    Shape[3] = new Poly(anchor-y_dir*2 + v4, 80, R, 0.1, 0.1, 0.1);
+    //flag for bonus
+    Vec v51 = y_dir*(H+flag_height);
+    Vec v52 = y_dir*(H+2+flag_height);
+    Vec v53 = x_dir*3+y_dir*(H+1+flag_height);
+    Shape[4] = new Triangle(anchor-y_dir*2,v51,v52,v53,1.0,0,0);
+    glColor3d(0.0, 0.0, 0.0);
+    glBegin(GL_LINES);
+    glVertex2d((anchor-y_dir*2+y_dir*H).getX(), (anchor-y_dir*2+y_dir*H).getY());
+    glVertex2d((anchor+v51).getX(), (anchor+v51).getY());
+    glEnd();
+    for (int i = 0; i < 5; i++){
 		Shape[i]->draw();
         delete Shape[i];
     }
@@ -153,17 +170,24 @@ Teleported::Teleported(Vec anchor, Vec v1, Vec v2, status_quo status){
     this->v2 = v2;
 	this->cur_status = status;
 	color_change_time = 0;
+    side = 3;
 }
 void Teleported::draw()
 {
-	if (color_change_time == 0)
+	if (color_change_time %10 == 0)
 	{
 		r=(double)rand()/(double)RAND_MAX;
 		g=(double)rand()/(double)RAND_MAX;
 		b=(double)rand()/(double)RAND_MAX;
-		color_change_time=10;
+        if(color_change_time == 0){
+            side+=1;
+            color_change_time=400;
+        }
 	}
 	color_change_time--;
+    Poly polygon = Poly(anchor,side,9.5,r,g,b);
+    polygon.draw();
+    /*
 	Vec p1 = anchor + v1;
 	Vec p2 = anchor + v2;
 	Vec p3 = anchor - v1;
@@ -175,4 +199,5 @@ void Teleported::draw()
 	glVertex2d(p3.getX(), p3.getY());
 	glVertex2d(p4.getX(), p4.getY());
 	glEnd();
+     */
 }
