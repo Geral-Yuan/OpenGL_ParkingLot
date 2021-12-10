@@ -13,7 +13,7 @@ Car::~Car() {
 }
 void Car::PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    time_t enterTimeSec = time(nullptr);
+    enterTimeSec = time(nullptr);
     cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Car" << ";" << endl;
     //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
@@ -26,7 +26,7 @@ Motor::~Motor() {
 }
 void Motor::PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    time_t enterTimeSec = time(nullptr);
+    enterTimeSec = time(nullptr);
     cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Motor" << ";" << endl;
     //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
@@ -39,7 +39,7 @@ Van::~Van() {
 }
 void Van::PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    time_t enterTimeSec = time(nullptr);
+    enterTimeSec = time(nullptr);
     cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Van" << ";" << endl;
     //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
@@ -52,7 +52,7 @@ Bike::~Bike(){
 }
 void Bike::PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    time_t enterTimeSec = time(nullptr);
+    enterTimeSec = time(nullptr);
     cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Bike" << ";" << endl;
     //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
@@ -61,37 +61,41 @@ void Bike::PrintEnterTicket() {
 void Car::PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
+    cout << exitTimeSec << endl;
     cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Car" << ";" << endl;
     double price=10*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << "¥;" << endl;
+    cout << "Price: " << price << endl;
 }
 
 void Motor::PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
+    cout << exitTimeSec << endl;
     cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Motor" << ";" << endl;
     double price=8*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << "¥;" << endl;
+    cout << "Price: " << price << endl;
 }
 
 void Van::PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
+    cout << exitTimeSec << endl;
     cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Van" << ";" << endl;
     double price=15*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << "¥;" << endl;
+    cout << "Price: " << price << endl;
 }
 
 void Bike::PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
+    cout << exitTimeSec << endl;
     cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Bike" << ";" << endl;
     double price=5*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << "¥;" << endl;
+    cout << "Price: " << price << endl;
 }
 
 parkingLot::parkingLot() =default;

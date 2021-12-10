@@ -27,12 +27,16 @@ int main() {
     parkingLot lot;
     while(true)
     {
-        switch(actionDice(0.001,0.001))
+        switch(actionDice(0.005,0.001))
         {
             case 1://try to generate car
-                if(lot.getSize() <= capacity)
+                if(lot.getSize() < capacity)
                 {
                     lot.vehicleTypeDice();
+                    if (lot.getSize() == capacity)
+                        cout  << "I'm full, don't come in." << endl;
+                    else
+                        cout << lot.getSize() << endl;
                 }
                 break;
             case 2:
@@ -42,7 +46,7 @@ int main() {
                 }
 
         }
-        chronoDelay(0.01);
+        chronoDelay(0.005);
     }
 }
 /*An implementation plan of time system:

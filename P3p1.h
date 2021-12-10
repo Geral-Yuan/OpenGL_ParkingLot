@@ -17,9 +17,9 @@ public:
     virtual void PrintEnterTicket() = 0;
     virtual void PrintExitTicket() = 0;
 protected:
-    chrono::time_point<chrono::system_clock> enterTime;
+    //chrono::time_point<chrono::system_clock> enterTime;
     time_t enterTimeSec;
-    int slotNum;
+    //int slotNum;
 };//abstract class
 
 class Car : public Vehicle {
