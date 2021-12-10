@@ -12,41 +12,41 @@ class Vehicle {
 public:
     void generate();
     void remove();
-    virtual void PrintEnterTicket();
-    virtual void PrintExitTicket(int exittime);
-    virtual int CountPrice(int exittime);
+    virtual void PrintEnterTicket() = 0;
+    virtual void PrintExitTicket() = 0;
+    //virtual int CountPrice(int exittime);
 
 protected:
     int entertime;
     int slotnum;
-};
+};//abstract class
 
 class Car : public Vehicle {
 public:
-    int CountPrice(int exittime);
+    //int CountPrice(int exittime);
     void PrintEnterTicket();
-    void PrintExitTicket(int exittime);
+    void PrintExitTicket();
 };
 
 class Van : public Vehicle {
 public:
-    int CountPrice(int exittime);
+    //int CountPrice(int exittime);
     void PrintEnterTicket();
-    void PrintExitTicket(int exittime);
+    void PrintExitTicket();
 };
 
 class Motor : public Vehicle {
 public:
-    int CountPrice(int exittime);
+    //int CountPrice(int exittime);
     void PrintEnterTicket();
-    void PrintExitTicket(int exittime);
+    void PrintExitTicket();
 };
 
 class Bike : public Vehicle {
 public:
-    int CountPrice(int exittime);
+    //int CountPrice(int exittime);
     void PrintEnterTicket();
-    void PrintExitTicket(int exittime);
+    void PrintExitTicket();
 };
 
 void chronoDelay(double second);//delay a certain time, using second(can be double type)

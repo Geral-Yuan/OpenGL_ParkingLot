@@ -80,3 +80,22 @@ int Bike :: CountPrice(int exittime) {
     int price=5*(exittime-entertime);
     return price;
 }
+
+void chronoDelay(double second)
+{
+    const chrono::time_point<chrono::system_clock> start = chrono::system_clock::now();
+    chrono::time_point<chrono::system_clock> end = chrono::system_clock::now();
+    chrono::duration<double> diff = end - start;
+    while( (double)diff.count() <= second)
+    {
+        end = chrono::system_clock::now();
+        diff = end - start;
+    }
+}
+void printLocalTimePithy(){
+    time_t t = time(0);
+    tm* localTimePointer = localtime(&t);
+    cout << " Current Date: " << (localTimePointer->tm_mday) << "/" << (localTimePointer->tm_mon) + 1 << "/" << (localTimePointer->tm_year) + 1900 << endl;
+    cout << " Current Time: " << (localTimePointer->tm_hour) << ":" << (localTimePointer->tm_min) << ":" << (localTimePointer->tm_sec) << endl;
+    cout << endl;
+}
