@@ -14,15 +14,17 @@ void testAddTime(size_t num);
 void chronoDelay(double second);
 int main()
 {
-    printLocalTimePithy();
+    //printLocalTimeDetail();
+    //printLocalTimePithy();
+    threeWayPrintTime();
     //threeWayPrintTime();
     //testAddTime(10000000);
     /*cout << "---------------------------------" << endl;
     delaying(5);
     printLocalTimePithy();*/
-    cout << "---------------------------------" << endl;
-    chronoDelay(5);
-    printLocalTimePithy();
+    //cout << "---------------------------------" << endl;
+    //chronoDelay(2);
+    //printLocalTimePithy();
 
     return 0;
 }
@@ -74,6 +76,10 @@ void threeWayPrintTime() {
         cout << "The current time is " << asctime(gmtime(&t)) << (intmax_t) t << " seconds since the Epoch" << endl;
         //asctime: ASCII time
         cout << "The current time is " << ctime(&t) << (intmax_t) t << " seconds since the Epoch" << endl;
+        string timeString = (string) ctime(&t);
+        timeString[timeString.size()-1] = ';';
+        cout << timeString << endl;
+
     }
 }
 void testAddTime(size_t num)

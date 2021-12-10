@@ -7,21 +7,21 @@ int actionDice(double a_LARGER_0_0001, double b_LARGER_0_0001);
 using namespace std;
 int main()
 {
-    int daz = 0;
-    int zad = 0;
+    int atime = 0;
+    int btime = 0;
     srand((unsigned)time(0));
     for (int i = 0; i<= 10000;i++) {
         switch(actionDice(0.0001, 0.0001)){
             case 1:
-                daz ++;
+                atime ++;
                 //cout << endl;
                 break;
             case 2:
-                zad ++;
+                btime ++;
                 //cout << endl;
         }
     }
-    cout << daz <<' '<<zad << endl;
+    cout << atime << ' '<< btime << endl;
     return 0;
 }
 int actionDice(double a_LARGER_0_0001, double b_LARGER_0_0001)

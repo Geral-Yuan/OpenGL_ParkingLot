@@ -2,7 +2,7 @@
 // Created by ljr and ghy on 2021/12/9.
 // Updated by ghy on 2021/12/10 21:50
 //
-#include "P3p1.h"
+#include "p3p1.h"
 using namespace std;
 static const int capacity = 35;
 int FindEmpty(int* slot) {
@@ -25,7 +25,7 @@ int main() {
     parkingLot lot;
     while(true)
     {
-        switch(actionDice(0.005,0.001))
+        switch(actionDice(0.005,0.003))
         {
             case 1://try to generate car
                 if(lot.getSize() < capacity)

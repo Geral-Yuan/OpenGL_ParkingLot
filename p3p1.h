@@ -73,4 +73,5 @@ void printLocalTimePithy();//print local time to debug;
 int actionDice(double a_LARGER_0_0001,double b_LARGER_0_0001);
 //a dice to decide action (input e.g. chanceA = 0.001(return 1), chanceB = 0.01(return 2), else(return 0))
 
+void printATime(time_t enterTimeSec);
 #endif
