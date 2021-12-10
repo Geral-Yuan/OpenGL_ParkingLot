@@ -14,26 +14,33 @@ int FindEmpty(int* slot) {
 
 
 int main() {
+    const chrono::time_point<chrono::system_clock> demostart = chrono::system_clock::now();
+
     int slot[35];
     for (int i=0;i<=34;i++) slot[i]=0;
     /*slot[0]=1;
     slot[1]=1;
     cout<<FindEmpty(slot)<<endl;
     return 0;*/
+    parkingLot lot;
+    while(true)
+    {
+
+    }
 }
 /*An implementation plan of time system:
 
-main function start, get a time by calling std::chrono::system_clock::now
-and construct a vector of vehicle's pointer. (i.e. vector<Vehicle> lot)
+main function start, get vehicleVector time by calling std::chrono::system_clock::now
+and construct vehicleVector vector of vehicle's pointer. (i.e. vector<Vehicle> lot)
 
-start a loop which is always true (how to exit will discuss later on)
+start vehicleVector loop which is always true (how to exit will discuss later on)
 
-role diceA: to decide if we will generate a vehicle(if parking lot isn't full, role diceB)/ drive away a vehicle(if parking lot isn't empty, role diceC)/ not do anything
+role diceA: to decide if we will generate vehicleVector vehicle(if parking lot isn't full, role diceB)/ drive away vehicleVector vehicle(if parking lot isn't empty, role diceC)/ not do anything
 
-role diceB: (if generate a vehicle): to decide which kind of vehicle will generate and print ticket
-comment of step 4: push_back() a new vehicle with specfic vehicle type
+role diceB: (if generate vehicleVector vehicle): to decide which kind of vehicle will generate and print ticket
+comment of step 4: push_back() vehicleVector new vehicle with specfic vehicle type
 
-role diceC: (if drive away a vehicle): to decide which vehicle will drive away and print ticket
+role diceC: (if drive away vehicleVector vehicle): to decide which vehicle will drive away and print ticket
 comment of step 5: use iterator to scan the vector and erase() the vehicle's information
 
 use my function void chronoDelay(double second); to delay time

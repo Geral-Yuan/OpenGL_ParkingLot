@@ -4,81 +4,89 @@
 //
 #include "P3p1.h"
 using namespace std;
+Vehicle::~Vehicle() = default;
 void Car :: PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    cout << "Time of arrival: " << entertime << ";" << endl;
+    cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Car" << ";" << endl;
     cout << "Slot: Floor "<< slotnum/20 << " No." << slotnum-20*(int)(slotnum/20)<< endl;
 }
 
 void Motor :: PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    cout << "Time of arrival: " << entertime << ";" << endl;
+    cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Motor" << ";" << endl;
     cout << "Slot: Floor "<< slotnum/20 << " No." << slotnum-20*(int)(slotnum/20)<< endl;
 }
 
 void Van :: PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    cout << "Time of arrival: " << entertime << ";" << endl;
+    cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Van" << ";" << endl;
     cout << "Slot: Floor "<< slotnum/20 << " No." << slotnum-20*(int)(slotnum/20)<< endl;
 }
 
 void Bike :: PrintEnterTicket() {
     cout << endl << "----------Arrival Ticket----------" << endl;
-    cout << "Time of arrival: " << entertime << ";" << endl;
+    cout << "Time of arrival: " << ctime(&enterTimeSec) << ";" << endl;
     cout << "Type of vehicle: " << "Bike" << ";" << endl;
     cout << "Slot: Floor "<< slotnum/20 << " No." << slotnum-20*(int)(slotnum/20)<< endl;
 }
 
-void Car :: PrintExitTicket(int exittime) {
+void Car :: PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
-    cout << "Time spent in the parking lot: " << (exittime-entertime) << " hours;" << endl;
+    time_t exitTimeSec = time(0);
+    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Car" << ";" << endl;
-    int price=CountPrice(exittime);
+    time_t price=0.0010*(float)(exitTimeSec - enterTimeSec);
     cout << "Price: " << price << "¥;" << endl;
 }
 
-void Motor :: PrintExitTicket(int exittime) {
+void Motor :: PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
-    cout << "Time spent in the parking lot: " << (exittime-entertime) << " hours;" << endl;
+    time_t exitTimeSec = time(0);
+    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Motor" << ";" << endl;
-    int price=CountPrice(exittime);
+    time_t price=0.0008*(float)(exitTimeSec - enterTimeSec);
     cout << "Price: " << price << "¥;" << endl;
 }
 
-void Van :: PrintExitTicket(int exittime) {
+void Van :: PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
-    cout << "Time spent in the parking lot: " << (exittime-entertime) << " hours;" << endl;
+    time_t exitTimeSec = time(0);
+    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Van" << ";" << endl;
-    int price=CountPrice(exittime);
+    time_t price=0.0015*(float)(exitTimeSec - enterTimeSec);
     cout << "Price: " << price << "¥;" << endl;
 }
 
-void Bike :: PrintExitTicket(int exittime) {
+void Bike :: PrintExitTicket() {
     cout << "----------Departure Ticket----------" << endl;
-    cout << "Time spent in the parking lot: " << (exittime-entertime) << " hours;" << endl;
+    time_t exitTimeSec = time(0);
+    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << "Bike" << ";" << endl;
-    int price=CountPrice(exittime);
+    float price=0.0005*(float)(exitTimeSec - enterTimeSec);
     cout << "Price: " << price << "¥;" << endl;
 }
-
-int Car :: CountPrice(int exittime) {
-    int price=10*(exittime-entertime);
-    return price;
+parkingLot :: parkingLot() =default;
+parkingLot :: ~parkingLot() = default;
+Vehicle* parkingLot :: GetVehicle(int vehicleIndex){
+    return vehicleVector[(size_t)vehicleIndex];//return the pointer of the ith car
 }
-int Motor :: CountPrice(int exittime) {
-    int price=8*(exittime-entertime);
-    return price;
+int parkingLot :: getSize(){
+    return (int) vehicleVector.size();
 }
-int Van :: CountPrice(int exittime) {
-    int price=15*(exittime-entertime);
-    return price;
+void parkingLot :: addVehicle(Vehicle* vehiclePointer){
+    vehicleVector.push_back(vehiclePointer);
 }
-int Bike :: CountPrice(int exittime) {
-    int price=5*(exittime-entertime);
-    return price;
+void parkingLot :: removeVehicle(int vehicleIndex){
+    if ((size_t)vehicleIndex <= vehicleVector.size()-1) {
+        delete vehicleVector[(size_t)vehicleIndex];
+        vehicleVector.erase(vehicleVector.begin() + vehicleIndex);
+    }
+    else {
+        cerr << "removeVehicle() denied to remove, to avoid segmentation fault." << endl;
+    }
 }
 
 void chronoDelay(double second)
