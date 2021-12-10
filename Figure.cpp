@@ -104,7 +104,7 @@ void Poly::draw()
 	glColor3d(r, g, b);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < n; i++)
-		glVertex2d(anchor.getX() + R * cos(2 * PI * i / n), anchor.getY() + R * sin(2 * PI * i / n));
+		glVertex2d(anchor.getX() + R * cos(2 * PI * i / n - PI/4), anchor.getY() + R * sin(2 * PI * i / n - PI/4));
 	glEnd();
 }
 void Poly::zoom(double k)
