@@ -4,7 +4,7 @@
 //
 #include "P3p1.h"
 using namespace std;
-
+static const int capacity = 35;
 int FindEmpty(int* slot) {
     for (int i=0;i<=34;i++) {
         if (*(slot+i)==0) return i;
@@ -14,18 +14,35 @@ int FindEmpty(int* slot) {
 
 
 int main() {
-    const chrono::time_point<chrono::system_clock> demostart = chrono::system_clock::now();
+    srand((unsigned)time(nullptr));
+    //const chrono::time_point<chrono::system_clock> demostart = chrono::system_clock::now();
 
-    int slot[35];
+    /*int slot[35];
     for (int i=0;i<=34;i++) slot[i]=0;
-    /*slot[0]=1;
+    slot[0]=1;
     slot[1]=1;
     cout<<FindEmpty(slot)<<endl;
     return 0;*/
+
     parkingLot lot;
     while(true)
     {
+        switch(actionDice(0.001,0.001))
+        {
+            case 1://try to generate car
+                if(lot.getSize() <= capacity)
+                {
+                    lot.vehicleTypeDice();
+                }
+                break;
+            case 2:
+                if(lot.getSize() >= 0)
+                {
+                    lot.vehicleIndexDice();
+                }
 
+        }
+        chronoDelay(0.01);
     }
 }
 /*An implementation plan of time system:

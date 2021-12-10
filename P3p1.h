@@ -19,29 +19,37 @@ public:
 protected:
     chrono::time_point<chrono::system_clock> enterTime;
     time_t enterTimeSec;
-    int slotnum;
+    int slotNum;
 };//abstract class
 
 class Car : public Vehicle {
 public:
+    Car();
+    ~Car();
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
 
 class Van : public Vehicle {
 public:
+    Van();
+    ~Van();
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
 
 class Motor : public Vehicle {
 public:
+    Motor();
+    ~Motor();
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
 
 class Bike : public Vehicle {
 public:
+    Bike();
+    ~Bike();
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
@@ -51,8 +59,9 @@ public:
     ~parkingLot();
     int getSize();
     Vehicle *GetVehicle(int vehicleIndex);
-    void addVehicle(Vehicle* vehiclePointer);
     void removeVehicle(int vehicleIndex);
+    void vehicleTypeDice();
+    void vehicleIndexDice();
 private:
     vector<Vehicle*> vehicleVector;
     //vehicleVector parking lot has vehicleVector container of vehicles' information (implemented as vehicles' pointers)
@@ -60,4 +69,8 @@ private:
 
 void chronoDelay(double second);//delay vehicleVector certain time, using second(can be double type)
 void printLocalTimePithy();//print local time to debug;
+
+int actionDice(double a_LARGER_0_0001,double b_LARGER_0_0001);
+//a dice to decide action (input e.g. chanceA = 0.001(return 1), chanceB = 0.01(return 2), else(return 0))
+
 #endif
