@@ -29,6 +29,8 @@ using namespace std;
 //define vector class for anchors
 #include "vector.h"
 
+//some enum for status
+
 //define all figures
 #include "figure.h"
 
@@ -42,7 +44,6 @@ private:
 	int empty_slot_num;
     vector<Vehicle*> all_vehicles;
     int* slots_order;
-	int bar_open_time=0;
     single_park(){}
     ~single_park(){}
     //delete vehicle
@@ -76,28 +77,10 @@ public:
     //draw the car park
     void draw();
     //generate new vehicle
-    void generate_vehicle();
+    void generate_vehicle(int *bar_open_time);
     //move vehicle
 	void move_vehicle();
     //delete the parking lot
-	void move_barrier(){
-		glColor3d(1, 0, 0);
-		glBegin(GL_LINES);
-		glVertex2d(0, 0);
-		if (bar_open_time > 0)
-		{
-			if (bar_open_time > 70)
-				glVertex2d(-25 * cos(PI / 40 * (90 - bar_open_time)), 25 * sin(PI / 40 * (90 - bar_open_time)));
-			else if (bar_open_time <= 20)
-				glVertex2d(-25 * cos(PI / 40 * bar_open_time), 25 * sin(PI / 40 * bar_open_time));
-			else
-				glVertex2d(0, 25);
-			bar_open_time -= 1;
-		}
-		else
-			glVertex2d(-25, 0);
-		glEnd();
-	}
     void delete_parking_lot(){
         delete_vehicle();
         delete_slot();
