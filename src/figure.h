@@ -2,6 +2,7 @@
 #define FIGURE_H
 
 #include "vector.h"
+//some enum for vehicle type
 enum v_type
 {
 	CAR,
@@ -9,6 +10,7 @@ enum v_type
 	SPACECRAFT,
 	TELEPORTED
 };
+//some enum for status
 enum status_quo
 {
 	GET_IN,
@@ -45,28 +47,20 @@ protected:
 	double r, g, b;
 };
 
-class Quodrilateral : public ColoredFig
-{
-public:
-	virtual void draw() = 0;
-};
-
-class Rec : public Quodrilateral
+class Rec : public ColoredFig
 {
 public:
 	Rec(Vec anchor, Vec v1, Vec v2, double r = 0, double g = 0, double b = 0);
 	void draw();
-	void zoom(double k);
 
 protected:
 	Vec v1, v2;
 };
-class Trapezium : public Quodrilateral
+class Trapezium : public ColoredFig
 {
 public:
 	Trapezium(Vec anchor, Vec v1, Vec v2, Vec v3, Vec v4, double r = 0, double g = 0, double b = 0);
 	void draw();
-	void zoom(double k);
 
 protected:
 	Vec v1, v2, v3, v4;
@@ -77,7 +71,6 @@ class Triangle : public ColoredFig
 public:
 	Triangle(Vec anchor, Vec v1, Vec v2, Vec v3, double r = 0, double g = 0, double b = 0);
 	void draw();
-	void zoom(double k);
 
 protected:
 	Vec v1, v2, v3;
@@ -88,7 +81,6 @@ class Poly : public ColoredFig
 public:
 	Poly(Vec anchor, int n = 4, double R = 1, double r = 0, double g = 0, double b = 0);
 	void draw();
-	void zoom(double k);
 
 private:
 	int n;
@@ -114,26 +106,20 @@ class Vehicle : public Figure
 public:
 	Vehicle() : x_dir(0, 1), y_dir(-1, 0) {}
 	virtual void draw() = 0;
-	void move(Vec dir);
+	void move(double v);
 	void rotate(double angle);
 	//get and set position info
 	Vec getxDir() { return x_dir; }
-	Vec getyDir() { return y_dir; }
-	void SetDir(Vec x_d, Vec y_d)
-	{
-		x_dir = x_d;
-		y_dir = y_d;
-	}
 	//get status
-	status_quo Getstatus() { return cur_status; }
-	//set status
-	void Setstatus(status_quo _status) { cur_status = _status; }
+	status_quo Getstatus(){return cur_status;}
+	//change status
+	void Changestatus(int slot_num);
+	//set steps
 	void Setstep(int _step) { remain_step = _step; }
+	//get steps
 	int Getstep() { return remain_step; }
+	//get slot
 	int Getslot() { return slot; }
-	//soon deprecated ticket functions
-	void print_arr_ticket(int time, v_type type, int slot_num);
-	void print_exit_ticket(int in_time, v_type type, int out_time);
 	virtual ~Vehicle(){};
 
 protected:
@@ -151,9 +137,9 @@ protected:
 class Car : public Vehicle
 {
 private:
-	double L, H, d, s, R;
-    double flag_height;
-    bool flag;
+	double L=20, H=6, d=10, s=3, R=2;
+    double flag_height=0;
+    bool flag=0;
     void move_flag(){
         if(flag_height-0<=0.001)
             flag = 1;

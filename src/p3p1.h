@@ -10,55 +10,68 @@
 #include <chrono>//time related functions and data types
 #include <vector>//It is highly recommended to use vector to store pointers to the vehicles
 using namespace std;
-static const int capacity = 35;
-static const time_t demoDuration = 300;//run 5 minutes
+
 class Vehicle {
 public:
     virtual ~Vehicle();
-    void PrintEnterTicket(const string&, int*);
-    void PrintExitTicket(double, const string&) const;
-    void removeSlotNum(int*) const;
+    virtual void PrintEnterTicket() = 0;
+    virtual void PrintExitTicket() = 0;
 protected:
     //chrono::time_point<chrono::system_clock> enterTime;
     time_t enterTimeSec;
-    int slotNum;
+    //int slotNum;
 };//abstract class
+
 class Car : public Vehicle {
 public:
-    explicit Car(int*);
-    ~Car() override;
+    Car();
+    ~Car();
+    void PrintEnterTicket() override;
+    void PrintExitTicket() override;
 };
+
 class Van : public Vehicle {
 public:
-    explicit Van(int*);
-    ~Van() override;
+    Van();
+    ~Van();
+    void PrintEnterTicket() override;
+    void PrintExitTicket() override;
 };
+
 class Motor : public Vehicle {
 public:
-    explicit Motor(int*);
-    ~Motor() override;
+    Motor();
+    ~Motor();
+    void PrintEnterTicket() override;
+    void PrintExitTicket() override;
 };
+
 class Bike : public Vehicle {
 public:
-    explicit Bike(int*);
-    ~Bike() override;
+    Bike();
+    ~Bike();
+    void PrintEnterTicket() override;
+    void PrintExitTicket() override;
 };
 class parkingLot{
 public:
     parkingLot();
     ~parkingLot();
     int getSize();
-    Vehicle *GetVehicle(int);
-    void removeVehicle(int,int*);
-    void vehicleTypeDice(int*);
-    void vehicleIndexDice(int*);
+    Vehicle *GetVehicle(int vehicleIndex);
+    void removeVehicle(int vehicleIndex);
+    void vehicleTypeDice();
+    void vehicleIndexDice();
 private:
     vector<Vehicle*> vehicleVector;
     //vehicleVector parking lot has vehicleVector container of vehicles' information (implemented as vehicles' pointers)
 };
+
 void chronoDelay(double second);//delay vehicleVector certain time, using second(can be double type)
+void printLocalTimePithy();//print local time to debug;
+
 int actionDice(double a_LARGER_0_0001,double b_LARGER_0_0001);
 //a dice to decide action (input e.g. chanceA = 0.001(return 1), chanceB = 0.01(return 2), else(return 0))
+
 void printATime(time_t enterTimeSec);
-int FindEmpty(int* slot);
 #endif
