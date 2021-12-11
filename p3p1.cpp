@@ -1,97 +1,49 @@
 //
 // Created by ljr and ghy on 2021/12/9.
-// Updated by ghy on 2021/12/10 21:50
+// Updated by ghy on 2021/12/11 11:15
 //
 #include "p3p1.h"
 using namespace std;
 Vehicle::~Vehicle() = default;
+void Vehicle::PrintEnterTicket(const string& VName) {
+    cout << endl << "----------Arrival Ticket----------" << endl;
+    enterTimeSec = time(nullptr);
+    printATime(enterTimeSec);
+    cout << "Type of vehicle: " << VName << ";" << endl;
+    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
+}
+void Vehicle::PrintExitTicket(double MoneyPerH, const string& VName) const {
+    cout << endl << "----------Departure Ticket----------" << endl;
+    time_t exitTimeSec = time(nullptr);
+    //cout << exitTimeSec << endl;
+    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
+    cout << "Type of vehicle: " << VName << ";" << endl;
+    double price=MoneyPerH*(double)(exitTimeSec - enterTimeSec);
+    cout << "Price: " << price << endl;
+}
 Car::Car() {
-    Car::PrintEnterTicket();
+    Car::PrintEnterTicket("car");
 }
 Car::~Car() {
-    Car::PrintExitTicket();
-}
-void Car::PrintEnterTicket() {
-    cout << endl << "----------Arrival Ticket----------" << endl;
-    enterTimeSec = time(nullptr);
-    printATime(enterTimeSec);
-    cout << "Type of vehicle: " << "Car" << ";" << endl;
-    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
+    Car::PrintExitTicket(10, "car");
 }
 Motor::Motor(){
-    Motor::PrintEnterTicket();
+    Motor::PrintEnterTicket("Motor");
 }
 Motor::~Motor() {
-    Motor::PrintExitTicket();
-}
-void Motor::PrintEnterTicket() {
-    cout << endl << "----------Arrival Ticket----------" << endl;
-    enterTimeSec = time(nullptr);
-    printATime(enterTimeSec);
-    cout << "Type of vehicle: " << "Motor" << ";" << endl;
-    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
+    Motor::PrintExitTicket(8, "Motor");
 }
 Van::Van(){
-    Van::PrintEnterTicket();
+    Van::PrintEnterTicket("Van");
 }
 Van::~Van() {
-    Van::PrintExitTicket();
-}
-void Van::PrintEnterTicket() {
-    cout << endl << "----------Arrival Ticket----------" << endl;
-    enterTimeSec = time(nullptr);
-    printATime(enterTimeSec);
-    cout << "Type of vehicle: " << "Van" << ";" << endl;
-    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
+    Van::PrintExitTicket(15, "Van");
 }
 Bike::Bike(){
-    Bike::PrintEnterTicket();
+    Bike::PrintEnterTicket("Bike");
 }
 Bike::~Bike(){
-    Bike::PrintExitTicket();
-}
-void Bike::PrintEnterTicket() {
-    cout << endl << "----------Arrival Ticket----------" << endl;
-    enterTimeSec = time(nullptr);
-    printATime(enterTimeSec);
-    cout << "Type of vehicle: " << "Bike" << ";" << endl;
-    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
-}
-void Car::PrintExitTicket() {
-    cout << endl << "----------Departure Ticket----------" << endl;
-    time_t exitTimeSec = time(nullptr);
-    //cout << exitTimeSec << endl;
-    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
-    cout << "Type of vehicle: " << "Car" << ";" << endl;
-    double price=10*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << endl;
-}
-void Motor::PrintExitTicket() {
-    cout << endl << "----------Departure Ticket----------" << endl;
-    time_t exitTimeSec = time(nullptr);
-    //cout << exitTimeSec << endl;
-    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
-    cout << "Type of vehicle: " << "Motor" << ";" << endl;
-    double price=8*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << endl;
-}
-void Van::PrintExitTicket() {
-    cout << endl << "----------Departure Ticket----------" << endl;
-    time_t exitTimeSec = time(nullptr);
-    //cout << exitTimeSec << endl;
-    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
-    cout << "Type of vehicle: " << "Van" << ";" << endl;
-    double price=15*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << endl;
-}
-void Bike::PrintExitTicket() {
-    cout << endl << "----------Departure Ticket----------" << endl;
-    time_t exitTimeSec = time(nullptr);
-    //cout << exitTimeSec << endl;
-    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
-    cout << "Type of vehicle: " << "Bike" << ";" << endl;
-    double price=5*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << endl;
+    Bike::PrintExitTicket(5, "Bike");
 }
 parkingLot::parkingLot() =default;
 parkingLot::~parkingLot() = default;
@@ -120,13 +72,6 @@ void chronoDelay(double second)
         end = chrono::system_clock::now();
         diff = end - start;
     }
-}
-void printLocalTimePithy(){
-    time_t t = time(nullptr);
-    tm* localTimePointer = localtime(&t);
-    cout << " Current Date: " << (localTimePointer->tm_mday) << "/" << (localTimePointer->tm_mon) + 1 << "/" << (localTimePointer->tm_year) + 1900 << endl;
-    cout << " Current Time: " << (localTimePointer->tm_hour) << ":" << (localTimePointer->tm_min) << ":" << (localTimePointer->tm_sec) << endl;
-    cout << endl;
 }
 int actionDice(double chanceA,double chanceB)
 {
