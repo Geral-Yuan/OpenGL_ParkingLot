@@ -22,6 +22,12 @@ void Rec::draw()
 	glVertex2d(p4.getX(), p4.getY());
 	glEnd();
 }
+void Rec::zoom(double k)
+{
+	anchor = anchor * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
+}
 Trapezium::Trapezium(Vec anchor, Vec v1, Vec v2, Vec v3, Vec v4, double r, double g, double b) : v1(0, 0), v2(0, 0), v3(0, 0), v4(0, 0)
 {
 	this->anchor = anchor;
@@ -47,6 +53,14 @@ void Trapezium::draw()
 	glVertex2d(p4.getX(), p4.getY());
 	glEnd();
 }
+void Trapezium::zoom(double k)
+{
+	anchor = anchor * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
+	v3 = v3 * k;
+	v4 = v4 * k;
+}
 Triangle::Triangle(Vec anchor, Vec v1, Vec v2, Vec v3, double r, double g, double b) : v1(0, 0), v2(0, 0), v3(0, 0)
 {
 	this->anchor = anchor;
@@ -69,6 +83,13 @@ void Triangle::draw()
 	glVertex2d(p3.getX(), p3.getY());
 	glEnd();
 }
+void Triangle::zoom(double k)
+{
+	anchor = anchor * k;
+	v1 = v1 * k;
+	v2 = v2 * k;
+	v3 = v3 * k;
+}
 Poly::Poly(Vec anchor, int n, double R, double r, double g, double b)
 {
 	this->anchor = anchor;
@@ -85,6 +106,10 @@ void Poly::draw()
 	for (int i = 0; i < n; i++)
 		glVertex2d(anchor.getX() + R * cos(2 * PI * i / n - PI/4), anchor.getY() + R * sin(2 * PI * i / n - PI/4));
 	glEnd();
+}
+void Poly::zoom(double k)
+{
+	R *= k;
 }
 
 Half_Circle::Half_Circle(Vec anchor, Vec x_dir, Vec y_dir , int n, double R, double r, double g, double b){
