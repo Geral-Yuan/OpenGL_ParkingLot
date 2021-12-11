@@ -152,7 +152,18 @@ class Car : public Vehicle
 {
 private:
 	double L, H, d, s, R;
-
+    double flag_height;
+    bool flag;
+    void move_flag(){
+        if(flag_height-0<=0.001)
+            flag = 1;
+        if(2-flag_height<=0.001)
+            flag = 0;
+        if(flag == 0)
+            flag_height -=0.5;
+        if(flag ==1)
+            flag_height +=0.5;
+    }
 public:
 	//constructor
 	Car(int slot, Vec anchor, Vec x_dir, Vec y_dir, int step = 50, status_quo status = GET_IN);
@@ -210,6 +221,7 @@ public:
 private:
 	Vec v1, v2;
 	int color_change_time;
+    int side;
 	double r, g, b;
 };
 

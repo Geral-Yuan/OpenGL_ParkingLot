@@ -1,54 +1,50 @@
 //
 // Created by ljr and ghy on 2021/12/9.
-// Updated by ghy on 2021/12/10 10:42
+// Updated by ghy on 2021/12/11 10:44
 //
-#include "P3p1.h"
+#include "p3p1.h"
 using namespace std;
-static const int capacity = 35;
-int FindEmpty(int* slot) {
-    for (int i=0;i<=34;i++) {
-        if (*(slot+i)==0) return i;
-    }
-    return 0;
-}
+
+
 
 
 int main() {
     srand((unsigned)time(nullptr));
-    //const chrono::time_point<chrono::system_clock> demostart = chrono::system_clock::now();
 
-    /*int slot[35];
-    for (int i=0;i<=34;i++) slot[i]=0;
-    slot[0]=1;
-    slot[1]=1;
-    cout<<FindEmpty(slot)<<endl;
-    return 0;*/
-
-    parkingLot lot;
-    while(true)
+    const time_t demoStart = time(nullptr);
+    time_t demoEnd = time(nullptr);
+    int slot[capacity];
+    for (int i = 0; i <= capacity-1; i++)
     {
-        switch(actionDice(0.005,0.001))
+        slot[i] = 0;
+    }
+    parkingLot lot;
+    while(demoEnd - demoStart <= (time_t)demoDuration)
+    {
+        switch(actionDice(0.005,0.003))
         {
             case 1://try to generate car
                 if(lot.getSize() < capacity)
                 {
-                    lot.vehicleTypeDice();
-                    if (lot.getSize() == capacity)
-                        cout  << "I'm full, don't come in." << endl;
-                    else
-                        cout << lot.getSize() << endl;
-                        cout << "Slot: Floor " << lot.getSize() / 20 << " No." << lot.getSize() - 20 * (int)(lot.getSize() / 20) << endl;
+                    lot.vehicleTypeDice(slot);
+                    //decide which kind of vehicle will generate and print ticket
+                    if (lot.getSize() == capacity) {
+                        cout << "I'm full, don't come in." << endl;
+                    }
                 }
                 break;
             case 2:
-                if(lot.getSize() >= 0)
+                if(lot.getSize() >= 1)
                 {
-                    lot.vehicleIndexDice();
+                    lot.vehicleIndexDice(slot);
+                    //decide which vehicle will drive away and print ticket
                 }
 
         }
         chronoDelay(0.005);
+        demoEnd = time(nullptr);
     }
+    return 0;
 }
 /*An implementation plan of time system:
 
