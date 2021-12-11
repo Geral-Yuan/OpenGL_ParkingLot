@@ -4,14 +4,8 @@
 //
 #include "p3p1.h"
 using namespace std;
-static const int capacity = 35;
-static const time_t demoDuration = 300;//run 5 minutes
-int FindEmpty(int* slot) {
-    for (int i=0;i<=34;i++) {
-        if (*(slot+i)==0) return i;
-    }
-    return 0;
-}
+
+
 
 
 int main() {
@@ -19,12 +13,11 @@ int main() {
 
     const time_t demoStart = time(nullptr);
     time_t demoEnd = time(nullptr);
-    /*int slot[35];
-    for (int i=0;i<=34;i++) slot[i]=0;
-    slot[0]=1;
-    slot[1]=1;
-    cout<<FindEmpty(slot)<<endl;
-    return 0;*/
+    int slot[capacity];
+    for (int i = 0; i <= capacity-1; i++)
+    {
+        slot[i] = 0;
+    }
     parkingLot lot;
     while(demoEnd - demoStart <= (time_t)demoDuration)
     {
@@ -33,17 +26,18 @@ int main() {
             case 1://try to generate car
                 if(lot.getSize() < capacity)
                 {
-                    lot.vehicleTypeDice();
-                    if (lot.getSize() == capacity)
-                        cout  << "I'm full, don't come in." << endl;
-                    else
-                        cout << lot.getSize() << endl;
+                    lot.vehicleTypeDice(slot);
+                    //decide which kind of vehicle will generate and print ticket
+                    if (lot.getSize() == capacity) {
+                        cout << "I'm full, don't come in." << endl;
+                    }
                 }
                 break;
             case 2:
                 if(lot.getSize() >= 1)
                 {
-                    lot.vehicleIndexDice();
+                    lot.vehicleIndexDice(slot);
+                    //decide which vehicle will drive away and print ticket
                 }
 
         }

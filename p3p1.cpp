@@ -5,42 +5,45 @@
 #include "p3p1.h"
 using namespace std;
 Vehicle::~Vehicle() = default;
-void Vehicle::PrintEnterTicket(const string& VName) {
+void Vehicle::PrintEnterTicket(const string& VName,int* slot) {
     cout << endl << "----------Arrival Ticket----------" << endl;
     enterTimeSec = time(nullptr);
     printATime(enterTimeSec);
     cout << "Type of vehicle: " << VName << ";" << endl;
-    //cout << "Slot: Floor " << slotNum / 20 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
+    slotNum = FindEmpty(slot);
+    cout << "Slot: Floor " << (slotNum / 20)+1 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
 }
 void Vehicle::PrintExitTicket(double MoneyPerH, const string& VName) const {
     cout << endl << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
-    //cout << exitTimeSec << endl;
     cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
     cout << "Type of vehicle: " << VName << ";" << endl;
     double price=MoneyPerH*(double)(exitTimeSec - enterTimeSec);
     cout << "Price: " << price << endl;
 }
-Car::Car() {
-    Car::PrintEnterTicket("car");
+void Vehicle::removeSlotNum(int* slot) const {
+    slot[slotNum-1] = 0;
+}
+Car::Car(int* slot) {
+    Car::PrintEnterTicket("car",slot);
 }
 Car::~Car() {
     Car::PrintExitTicket(10, "car");
 }
-Motor::Motor(){
-    Motor::PrintEnterTicket("Motor");
+Motor::Motor(int* slot){
+    Motor::PrintEnterTicket("Motor",slot);
 }
 Motor::~Motor() {
     Motor::PrintExitTicket(8, "Motor");
 }
-Van::Van(){
-    Van::PrintEnterTicket("Van");
+Van::Van(int* slot){
+    Van::PrintEnterTicket("Van",slot);
 }
 Van::~Van() {
     Van::PrintExitTicket(15, "Van");
 }
-Bike::Bike(){
-    Bike::PrintEnterTicket("Bike");
+Bike::Bike(int* slot){
+    Bike::PrintEnterTicket("Bike",slot);
 }
 Bike::~Bike(){
     Bike::PrintExitTicket(5, "Bike");
@@ -53,8 +56,9 @@ Vehicle* parkingLot::GetVehicle(int vehicleIndex){
 int parkingLot::getSize(){
     return (int) vehicleVector.size();
 }
-void parkingLot::removeVehicle(int vehicleIndex){
+void parkingLot::removeVehicle(int vehicleIndex,int* slot){
     if ((size_t)vehicleIndex <= vehicleVector.size()-1) {
+        vehicleVector[(size_t)vehicleIndex]->removeSlotNum(slot);
         delete vehicleVector[(size_t)vehicleIndex];
         vehicleVector.erase(vehicleVector.begin() + vehicleIndex);
     }
@@ -92,36 +96,45 @@ int actionDice(double chanceA,double chanceB)
         return -1;
     }
 }
-void parkingLot::vehicleTypeDice()
+void parkingLot::vehicleTypeDice(int* slot)
 {
     switch (rand()%4) {//rolling a dice to decide which vehicle to generate
         case 0: {
-            Vehicle* tmpPtr = new Car;//assign new area of memory of Car
+            Vehicle* tmpPtr = new Car(slot);//assign new area of memory of Car
             vehicleVector.push_back(tmpPtr);//put the new pointer and the end of the vector storing pointers to Vehicles
             break;
         }
         case 1:{
-            Vehicle* tmpPtr = new Motor;
+            Vehicle* tmpPtr = new Motor(slot);
             vehicleVector.push_back(tmpPtr);
             break;
         }
         case 2:{
-            Vehicle* tmpPtr = new Van;
+            Vehicle* tmpPtr = new Van(slot);
             vehicleVector.push_back(tmpPtr);
             break;
         }
         case 3:{
-            Vehicle* tmpPtr = new Bike;
+            Vehicle* tmpPtr = new Bike(slot);
             vehicleVector.push_back(tmpPtr);
         }
     }
 }
-void parkingLot::vehicleIndexDice()
+void parkingLot::vehicleIndexDice(int* slot)
 {
-    parkingLot::removeVehicle(rand()%parkingLot::getSize());
+    parkingLot::removeVehicle(rand()%parkingLot::getSize(),slot);
 }
 void printATime(time_t enterTimeSec){
     string timeString = (string) ctime(&enterTimeSec);
     timeString[timeString.size()-1] = ';';
     cout << "Time of arrival: " <<timeString << endl;
+}
+int FindEmpty(int* slot) {
+    for (int i=0;i<=capacity-1;i++) {
+        if (slot[i] == 0) {
+            slot[i] = 1;
+            return i+1;
+        }
+    }
+    return 0;
 }
