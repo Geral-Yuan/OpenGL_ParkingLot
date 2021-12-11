@@ -10,48 +10,35 @@
 #include <chrono>//time related functions and data types
 #include <vector>//It is highly recommended to use vector to store pointers to the vehicles
 using namespace std;
-
 class Vehicle {
 public:
     virtual ~Vehicle();
-    virtual void PrintEnterTicket() = 0;
-    virtual void PrintExitTicket() = 0;
+    void PrintEnterTicket(const string&);
+    void PrintExitTicket(double, const string&) const;
 protected:
     //chrono::time_point<chrono::system_clock> enterTime;
     time_t enterTimeSec;
     //int slotNum;
 };//abstract class
-
 class Car : public Vehicle {
 public:
     Car();
     ~Car() override;
-    void PrintEnterTicket() override;
-    void PrintExitTicket() override;
 };
-
 class Van : public Vehicle {
 public:
     Van();
     ~Van() override;
-    void PrintEnterTicket() override;
-    void PrintExitTicket() override;
 };
-
 class Motor : public Vehicle {
 public:
     Motor();
     ~Motor() override;
-    void PrintEnterTicket() override;
-    void PrintExitTicket() override;
 };
-
 class Bike : public Vehicle {
 public:
     Bike();
     ~Bike() override;
-    void PrintEnterTicket() override;
-    void PrintExitTicket() override;
 };
 class parkingLot{
 public:
@@ -66,12 +53,8 @@ private:
     vector<Vehicle*> vehicleVector;
     //vehicleVector parking lot has vehicleVector container of vehicles' information (implemented as vehicles' pointers)
 };
-
 void chronoDelay(double second);//delay vehicleVector certain time, using second(can be double type)
-void printLocalTimePithy();//print local time to debug;
-
 int actionDice(double a_LARGER_0_0001,double b_LARGER_0_0001);
 //a dice to decide action (input e.g. chanceA = 0.001(return 1), chanceB = 0.01(return 2), else(return 0))
-
 void printATime(time_t enterTimeSec);
 #endif
