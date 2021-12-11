@@ -1,10 +1,11 @@
 //
 // Created by ljr and ghy on 2021/12/9.
-// Updated by ghy on 2021/12/10 21:50
+// Updated by ghy on 2021/12/11 10:44
 //
 #include "p3p1.h"
 using namespace std;
 static const int capacity = 35;
+static const time_t demoDuration = 300;//run 5 minutes
 int FindEmpty(int* slot) {
     for (int i=0;i<=34;i++) {
         if (*(slot+i)==0) return i;
@@ -15,7 +16,9 @@ int FindEmpty(int* slot) {
 
 int main() {
     srand((unsigned)time(nullptr));
-    //const chrono::time_point<chrono::system_clock> demostart = chrono::system_clock::now();
+
+    const time_t demoStart = time(nullptr);
+    time_t demoEnd = time(nullptr);
     /*int slot[35];
     for (int i=0;i<=34;i++) slot[i]=0;
     slot[0]=1;
@@ -23,7 +26,7 @@ int main() {
     cout<<FindEmpty(slot)<<endl;
     return 0;*/
     parkingLot lot;
-    while(true)
+    while(demoEnd - demoStart <= (time_t)demoDuration)
     {
         switch(actionDice(0.005,0.003))
         {
@@ -45,6 +48,7 @@ int main() {
 
         }
         chronoDelay(0.005);
+        demoEnd = time(nullptr);
     }
     return 0;
 }

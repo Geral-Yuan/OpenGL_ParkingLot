@@ -25,7 +25,7 @@ protected:
 class Car : public Vehicle {
 public:
     Car();
-    ~Car();
+    ~Car() override;
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
@@ -33,7 +33,7 @@ public:
 class Van : public Vehicle {
 public:
     Van();
-    ~Van();
+    ~Van() override;
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
@@ -41,7 +41,7 @@ public:
 class Motor : public Vehicle {
 public:
     Motor();
-    ~Motor();
+    ~Motor() override;
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
@@ -49,7 +49,7 @@ public:
 class Bike : public Vehicle {
 public:
     Bike();
-    ~Bike();
+    ~Bike() override;
     void PrintEnterTicket() override;
     void PrintExitTicket() override;
 };
