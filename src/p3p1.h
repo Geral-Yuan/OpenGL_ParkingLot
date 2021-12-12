@@ -48,7 +48,6 @@ public:
     parkingLot();
     ~parkingLot();
     int getSize();
-    Vehicle *GetVehicle(int);
     void removeVehicle(int,int*);
     void vehicleTypeDice(int*);
     void vehicleIndexDice(int*);
