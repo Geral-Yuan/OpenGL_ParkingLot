@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	glClearColor(1.0, 1.0, 1.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	//set the range of the x&y axis
-	gluOrtho2D(-40, 20 * slot_num_per_row + 40, -50, 120);
+	glOrtho(-40, 20 * slot_num_per_row + 40, -50, 120,0,1);
 	srand((unsigned int)time(NULL));
 	glutDisplayFunc(glDraw);
 	glutTimerFunc(25, TimeStep, 25);
