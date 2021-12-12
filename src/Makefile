@@ -4,7 +4,7 @@
 
 CCC = g++
 CCFLAGS = -Werror -pedantic -Wall -Wextra -Wvla -std=c++17
-LIBS = -lglu32 -lfreeglut -lopengl32 #-lglut -lGL
+LIBS = -lglut -lGL
 PMS_SRC = pms.cpp p3p1.cpp # add more files here (management)
 PMS = pms
 IPA_SRC = ipa.cpp Figure.cpp parking_area_draw.cpp parking_lot.cpp Vehicle.cpp # add more files here (interstellar)
