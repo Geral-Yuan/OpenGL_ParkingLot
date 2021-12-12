@@ -50,9 +50,6 @@ Bike::~Bike(){
 }
 parkingLot::parkingLot() =default;
 parkingLot::~parkingLot() = default;
-Vehicle* parkingLot::GetVehicle(int vehicleIndex){
-    return vehicleVector[(size_t)vehicleIndex];//return the pointer of the ith car
-}
 int parkingLot::getSize(){
     return (int) vehicleVector.size();
 }
@@ -138,4 +135,3 @@ int FindEmpty(int* slot) {
     }
     return 0;
 }
-//test
