@@ -34,7 +34,6 @@ typedef struct _pos{
 
 typedef struct _slot{
     position pos;
-    VEHICLE slot_type;
     STATUS slot_status;
 }slot;
 
@@ -110,15 +109,19 @@ public:
             int tmp = 0;
             std::cin >> tmp;
             std::cin.ignore(100,'\n');
+            slot s_tmp;
+            s_tmp.slot_status = EMPTY;
+            s_tmp.pos.floor = i+1;
             for(int j = 0; j< tmp; j++){
+                s_tmp.pos.number = j+1;
                 if(j <= (int)tmp*0.3)
-                    Car_slot.push_back((slot){(position){i+1,j+1},CAR,EMPTY});
+                    Car_slot.push_back(s_tmp);
                 else if(j <= (int)tmp*0.6)
-                    Van_slot.push_back((slot){(position){i+1,j+1},CAR,EMPTY});
+                    Van_slot.push_back(s_tmp);
                 else if(j <= (int)tmp*0.8)
-                    Bike_slot.push_back((slot){(position){i+1,j+1},CAR,EMPTY});
+                    Bike_slot.push_back(s_tmp);
                 else
-                    Motor_slot.push_back((slot){(position){i+1,j+1},CAR,EMPTY});
+                    Motor_slot.push_back(s_tmp);
             }
         }
     }
