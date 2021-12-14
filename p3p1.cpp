@@ -5,45 +5,45 @@
 #include "p3p1.h"
 using namespace std;
 Vehicle::~Vehicle() = default;
-void Vehicle::PrintEnterTicket(const string& VName,int* slot) {
+void Vehicle::PrintEnterTicket(const string& VehicleTypeName, int* slot, time_t demoStart) {
     cout << endl << "----------Arrival Ticket----------" << endl;
     enterTimeSec = time(nullptr);
-    printATime(enterTimeSec);
-    cout << "Type of vehicle: " << VName << ";" << endl;
+    printATime2(enterTimeSec-demoStart,"Time of arrival: ","(since demo starts)");
+    cout << "Type of vehicle: " << VehicleTypeName << ";" << endl;
     slotNum = FindEmpty(slot);
     cout << "Slot: Floor " << (slotNum / 20)+1 << " No." << slotNum - 20 * (int)(slotNum / 20) << endl;
 }
 void Vehicle::PrintExitTicket(double MoneyPerH, const string& VName) const {
     cout << endl << "----------Departure Ticket----------" << endl;
     time_t exitTimeSec = time(nullptr);
-    cout << "Time spent in the parking lot: " << (exitTimeSec - enterTimeSec) << " hours;" << endl;
+    printATime2(exitTimeSec - enterTimeSec,"Time spent in the parking lot: ","");
     cout << "Type of vehicle: " << VName << ";" << endl;
-    double price=MoneyPerH*(double)(exitTimeSec - enterTimeSec);
-    cout << "Price: " << price << endl;
+    double price=MoneyPerH*(double)(exitTimeSec - enterTimeSec)*(TCoefficient/60);
+    cout << "Price: " << fixed << setprecision(precisionNumber)<< price << endl;
 }
 void Vehicle::removeSlotNum(int* slot) const {
     slot[slotNum-1] = 0;
 }
-Car::Car(int* slot) {
-    Car::PrintEnterTicket("car",slot);
+Car::Car(int* slot,time_t demoStart) {
+    Car::PrintEnterTicket("car", slot, demoStart);
 }
 Car::~Car() {
     Car::PrintExitTicket(10, "car");
 }
-Motor::Motor(int* slot){
-    Motor::PrintEnterTicket("Motor",slot);
+Motor::Motor(int* slot,time_t demoStart){
+    Motor::PrintEnterTicket("Motor", slot, demoStart);
 }
 Motor::~Motor() {
     Motor::PrintExitTicket(8, "Motor");
 }
-Van::Van(int* slot){
-    Van::PrintEnterTicket("Van",slot);
+Van::Van(int* slot,time_t demoStart){
+    Van::PrintEnterTicket("Van", slot, demoStart);
 }
 Van::~Van() {
     Van::PrintExitTicket(15, "Van");
 }
-Bike::Bike(int* slot){
-    Bike::PrintEnterTicket("Bike",slot);
+Bike::Bike(int* slot,time_t demoStart){
+    Bike::PrintEnterTicket("Bike",slot,demoStart);
 }
 Bike::~Bike(){
     Bike::PrintExitTicket(5, "Bike");
@@ -93,26 +93,26 @@ int actionDice(double chanceA,double chanceB)
         return -1;
     }
 }
-void parkingLot::vehicleTypeDice(int* slot)
+void parkingLot::vehicleTypeDice(int* slot, time_t demoStart)
 {
     switch (rand()%4) {//rolling a dice to decide which vehicle to generate
         case 0: {
-            Vehicle* tmpPtr = new Car(slot);//assign new area of memory of Car
+            Vehicle* tmpPtr = new Car(slot, demoStart);//assign new area of memory of Car
             vehicleVector.push_back(tmpPtr);//put the new pointer and the end of the vector storing pointers to Vehicles
             break;
         }
         case 1:{
-            Vehicle* tmpPtr = new Motor(slot);
+            Vehicle* tmpPtr = new Motor(slot,demoStart);
             vehicleVector.push_back(tmpPtr);
             break;
         }
         case 2:{
-            Vehicle* tmpPtr = new Van(slot);
+            Vehicle* tmpPtr = new Van(slot,demoStart);
             vehicleVector.push_back(tmpPtr);
             break;
         }
         case 3:{
-            Vehicle* tmpPtr = new Bike(slot);
+            Vehicle* tmpPtr = new Bike(slot,demoStart);
             vehicleVector.push_back(tmpPtr);
         }
     }
@@ -134,4 +134,20 @@ int FindEmpty(int* slot) {
         }
     }
     return 0;
+}
+void printATime2(time_t Second, const string& information,const string& endInformation){
+    cout << information;
+    /*Minute is the Mock minute in demo*/
+    time_t Minute = Second*(time_t)TCoefficient;
+    int MinutesInADay = (int)(Minute%MinutePerDay);
+    int Day = (int)((Minute-MinutesInADay)/MinutePerDay);
+    if (Day!=0)
+    {cout << Day <<" Day(s) ";}
+    int MinutesInAnHour = (int)(MinutesInADay%60);
+    int Hour = (int)((MinutesInADay-MinutesInAnHour)/60);
+    if (Hour!=0)
+    {cout << Hour <<" Hour(s) ";}
+    if (MinutesInAnHour!=0)
+    {cout << MinutesInAnHour << " Minute(s) ";}
+    cout << endInformation <<endl;
 }
