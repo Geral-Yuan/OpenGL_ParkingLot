@@ -1,5 +1,5 @@
 #include "parking_lot.h"
-void single_park::generate_vehicle(int *bar_open_time)
+void single_park::generate_vehicle()
 {
 	if (empty_slot_num > 0)
 	{
@@ -14,7 +14,8 @@ void single_park::generate_vehicle(int *bar_open_time)
 		empty_slot_num -= 1;
 		//randomly generate a vehicle
 		v_type type = v_type(rand() % 4);
-		if (type != TELEPORTED){*bar_open_time = 90;}
+		if (type != TELEPORTED)
+			bar_open_time = 90;
 		//original generation spot
 		Vec anchor(-15, -25), x_dir(0, 1), y_dir(-1, 0);
 		//create a new vehicle
@@ -49,23 +50,21 @@ void single_park::move_vehicle()
 	vector<Vehicle *>::iterator pr;
 	for (pr = all_vehicles.begin(); pr != all_vehicles.end(); pr++)
 	{
-		if ((*pr)->Getstatus() != PARK)
+		status_quo status = (*pr)->Getstatus();
+		if (status != PARK)
 		{
 			int step[7] = {50, 24, 20 * slot_num / 2, 48, 20 * ((*pr)->Getslot() % (slot_num / 2)) + 25, 24, 10};
 			double theta[7] = {0, -PI / 48, 0, PI / 48, 0, PI / 48, 0};
 			double v[7] = {1, 30 * sin(PI / 96), 1, 30 * sin(PI / 96), 1, -30 * sin(PI / 96), -1};
 			if ((*pr)->Getstep() > 0)
 			{
-				(*pr)->move((*pr)->getxDir() * v[(*pr)->Getstatus()]);
-				(*pr)->rotate(theta[(*pr)->Getstatus()]);
+				(*pr)->move(v[status]);
+				(*pr)->rotate(theta[status]);
 				(*pr)->Setstep((*pr)->Getstep() - 1);
 			}
 			else
 			{
-				if ((*pr)->Getslot() < slot_num / 2 && (*pr)->Getstatus() == 1)
-					(*pr)->Setstatus(status_quo((*pr)->Getstatus() + 3));
-				else
-					(*pr)->Setstatus(status_quo((*pr)->Getstatus() + 1));
+				(*pr)->Changestatus(slot_num);
 				(*pr)->Setstep(step[(*pr)->Getstatus()]);
 			}
 		}

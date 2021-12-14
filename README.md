@@ -1,4 +1,4 @@
-# P3 -- Parking lot software
+# P3 -- Parking lot software by pgroup-09
 
 [![Build Status](https://focs.ji.sjtu.edu.cn:2222/api/badges/ENGR151-21/pgroup-09/status.svg)](https://focs.ji.sjtu.edu.cn:2222/ENGR151-21/pgroup-09)
 
@@ -36,3 +36,52 @@ Name your files as you wish and update `src/Makefile` and/or `src/CMakeLists.txt
 All along the project, meet with your teammates on a regular basis and discuss your progress. If you meet any issue contact the teaching team as early as possible.
 
 ## Content
+
+### Contributor
+
+- Liu Yiming
+- Yuan Jiale
+- Gan hanyu
+- Liu Jiaren
+
+Liu Yiming and Yuan Jiale finish part 2--interstellar parking lot and give some proposals on part 1.
+
+Gan hanyu and Liu Jiale finish part 1--regular parking lot.
+
+## Description of the project
+
+-  
+
+### Basic Rule (Cited from p2.pdf)
+
+-  
+
+## How to run the project
+
+- Run the command `make` on the Linux server to use Makefile to compile the whole project
+
+- Run the command `./pms` on the Linux server to run part 1 of the project.
+
+- Run the command `./ipa` (followed by option `-n k` here k is a specific number input by user to decide the number of slot of each line) on the Linux server to run part 2 of the project.
+
+- Run the command `make clean` on the Linux server to clean the compiled executable file.
+
+## Bonuses
+
+-  
+
+-  
+
+## Bugs and something to improve
+
+### Bugs
+
+-  
+
+### Something to improved
+
+-  
+
+## Function introduction
+
+## Something should be mention (important)
