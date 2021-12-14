@@ -108,7 +108,7 @@ public:
 	virtual void draw() = 0;
 	void move(double v);
 	void rotate(double angle);
-	//get direction
+	//get and set position info
 	Vec getxDir() { return x_dir; }
 	//get status
 	status_quo Getstatus(){return cur_status;}
@@ -120,11 +120,11 @@ public:
 	int Getstep() { return remain_step; }
 	//get slot
 	int Getslot() { return slot; }
-	~Vehicle(){};
+	virtual ~Vehicle(){};
 
 protected:
 	//a vehicle consists of basic shapes
-	ColoredFig *Shape[10] = {0};
+	Figure *Shape[10] = {0};
 	//a vector showing the vehicles's heading direction
 	Vec x_dir;
 	Vec y_dir;
