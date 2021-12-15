@@ -51,6 +51,8 @@ Gan hanyu and Liu Jiaren designed and worked on **[PART1]PMS**--regular parking 
 
 Liu Jiaren finished **README** of **[PART1]PMS** and Yuan Jiale finished "README" of **[PART2]IPA** of README.
 
+Liu Yiming and Yuan Jiale finished **Wiki**.
+
 ## Description of the project
 
 ### Part 1
@@ -113,9 +115,11 @@ Liu Jiaren finished **README** of **[PART1]PMS** and Yuan Jiale finished "README
 
 ### Bugs
 
+- So far so good.
+
 ### Something to be improved
 
-## Function introduction
+- Bonus uncompleted in p3.pdf.
 
 ## Something should be mention (important)
 
