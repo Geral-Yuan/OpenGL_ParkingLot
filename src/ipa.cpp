@@ -1,39 +1,60 @@
-#ifdef __MaxOSX__ 
-#include <GLUT/glut.h>
-#else
-#include <GL/freeglut.h>
-#endif
+#include "parking_lot.h"
 
-void display() {
-
-	/* clear window */
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	/* draw scene */
-	glutWireTeapot(.5);
-
-	/* flush drawing routines to the window */
+void TimeStep(int n)
+{
+	glutTimerFunc(25, TimeStep, n);
+	glutPostRedisplay();
+}
+void glDraw()
+{
+	single_park *carpark_map = single_park::get_instance();
+	static int t = 0;
+	//drawing part
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//draw the parking lot
+	carpark_map->draw();
+	//generate a new vehicle
+	if (t % 300 == 0)
+		carpark_map->generate_vehicle();
+	carpark_map->move_barrier();
+	//move and draw the vehicle
+	carpark_map->move_vehicle();
+	glutSwapBuffers();
 	glFlush();
-
+	t++;
 }
 
-int main(int argc, char *argv[]) {
-
-	/* initialize GLUT, using any commandline parameters passed to the program */
+int main(int argc, char *argv[])
+{
+	//use commandline argument to specify the number of slots per row
+	int slot_num_per_row = 6;
+	char c = 0;
+	while ((c = getopt(argc, argv, "n:")) != -1)
+		switch (c)
+		{
+		case 'n':
+			slot_num_per_row = atoi(optarg);
+			break;
+		}
+	//initialize a singleton parking lot with its slot number per row
+	single_park *carpark_map = single_park::get_instance();
+	carpark_map->set_slot(slot_num_per_row);
 	glutInit(&argc, argv);
-
-	/* setup the size, position, and display mode for new windows */
-	glutInitWindowSize(500, 500);
+	//set the window size accoring to user input
+	glutInitWindowSize((20 * slot_num_per_row + 80) * 3, 510);
 	glutInitWindowPosition(0, 0);
 	glutInitDisplayMode(GLUT_RGB);
-
-	/* create and set up a window */
+	//create the window and clear the background
 	glutCreateWindow("Interstellar parking animation");
-	glutDisplayFunc(display);
-
-	/* tell GLUT to wait for events */
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+	//set the range of the x&y axis
+	glOrtho(-40, 20 * slot_num_per_row + 40, -50, 120,0,1);
+	srand((unsigned int)time(NULL));
+	glutDisplayFunc(glDraw);
+	glutTimerFunc(25, TimeStep, 25);
 	glutMainLoop();
-
+	carpark_map->delete_parking_lot();
+	carpark_map->delete_instance();
 	return 0;
-
 }
