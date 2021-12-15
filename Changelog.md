@@ -7,8 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [m3] -- 2021-12-15
 
 ### Added 
-- 
-- 
+- part1 parking area draw
+- part1 simulation time decision
+- part1 demo mode & user mode decision
+- part1 delay functions
 
 ### Changed
 - 
