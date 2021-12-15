@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(glDraw);
 	glutTimerFunc(25, TimeStep, 25);
 	glutMainLoop();
-	carpark_map->delete_parking_lot();
+	//delete the singleton parking lot
 	carpark_map->delete_instance();
 	return 0;
 }
