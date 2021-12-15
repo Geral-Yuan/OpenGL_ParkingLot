@@ -38,7 +38,7 @@ typedef struct _slot{
 }slot;
 
 class Vehicle{
-private:
+protected:
     VEHICLE my_type;
     slot my_slot;
     time_t my_duration;
@@ -49,19 +49,69 @@ private:
     //exit
     void exit();
     //calculate price
-    int price_cal();
+    virtual int price_cal() = 0;
 public:
+    //destructor
+    virtual ~Vehicle(){}
     //constructor
-    Vehicle(VEHICLE generated_type, slot assigned_slot);
+    Vehicle();
     //print enter ticket
-    void enter_print(time_t start_time);
+    virtual void enter_print(time_t start_time) = 0;
     //print exit ticket
-    void exit_print();
+    virtual void exit_print() = 0;
     //get info funcitons
     time_t get_duration() {return my_duration;}
     time_t get_enter_time() {return enter_time;}
     slot get_slot() {return my_slot;}
     VEHICLE get_type() {return my_type;}
+};
+//car is a vehicle
+class Car : public Vehicle{
+private:
+    int price_cal();
+public:
+    //constructor
+    Car(slot assigned_slot);
+    //print enter ticket
+    void enter_print(time_t start_time);
+    //print exit ticket
+    void exit_print();
+};
+//van is a vehicle
+class Van : public Vehicle{
+private:
+    int price_cal();
+public:
+    //constructor
+    Van(slot assigned_slot);
+    //print enter ticket
+    void enter_print(time_t start_time);
+    //print exit ticket
+    void exit_print();
+};
+//bike is a vehicle
+class Bike : public Vehicle{
+private:
+    int price_cal();
+public:
+    //constructor
+    Bike(slot assigned_slot);
+    //print enter ticket
+    void enter_print(time_t start_time);
+    //print exit ticket
+    void exit_print();
+};
+//motor is a vehicle
+class Motor : public Vehicle{
+private:
+    int price_cal();
+public:
+    //constructor
+    Motor(slot assigned_slot);
+    //print enter ticket
+    void enter_print(time_t start_time);
+    //print exit ticket
+    void exit_print();
 };
 
 //class parking lot
@@ -74,13 +124,14 @@ private:
     std::vector<slot> Van_slot;
     std::vector<slot> Bike_slot;
     std::vector<slot> Motor_slot;
-    std::vector<Vehicle> all_vehicle;
+    std::vector<Vehicle*> all_vehicle;
     //simulation start_time
     time_t start_time;
     //check if has empty slot
-    slot have_empty(std::vector<slot> type_slot,bool* flag);
+    slot have_empty(std::vector<slot> &type_slot,bool* flag);
     //empty the slot after a car leaves
-    void empty_slot(std::vector<slot> type_slot, slot the_slot);
+    void empty_slot(std::vector<slot> &type_slot, slot the_slot);
+    void type_draw(std::vector<slot> type_slot);
 public:
     //constructor
     Parking_lot(int choice);
@@ -90,6 +141,10 @@ public:
     void Generate_Vehicle();
     //checkout vehicles
     void Checkout_Veh();
+    //draw the parking lot
+    void draw();
+    //destructor
+    ~Parking_lot();
 };
 
 
