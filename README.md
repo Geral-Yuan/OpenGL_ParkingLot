@@ -47,7 +47,9 @@ All along the project, meet with your teammates on a regular basis and discuss y
 
 Liu Yiming and Yuan Jiale finished part 2--interstellar parking lot and give some proposals on part 1.
 
-Gan hanyu and Liu Jiale designed and worked on part 1--regular parking lot and later Liu Yiming finished it.
+Gan hanyu and Liu Jiaren designed and worked on part 1--regular parking lot and later Liu Yiming finished it.
+
+Liu Jiaren finished part1 of README and Yuan Jiale finished part2 of README.
 
 ## Description of the project
 
