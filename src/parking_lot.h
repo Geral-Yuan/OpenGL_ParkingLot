@@ -61,17 +61,19 @@ public:
     static void delete_instance(){
         single_park* parking_lot = single_park::get_instance();
         if(parking_lot != NULL){
+			parking_lot->delete_vehicle();
+        	parking_lot->delete_slot();
             delete parking_lot;
             parking_lot = NULL;
         }
     }
-    //set the slot per row
+    //set the number of slots
     void set_slot(int _slot){
         slot_num = 2 * _slot;
-		empty_slot_num = slot_num;
+		empty_slot_num = slot_num;//initialise the number of empty slots
         slots_order = new int[slot_num]();
 		for (int i = 0; i < slot_num; i++)
-			slots_order[i] = i;
+			slots_order[i] = i;//initialise the order of each slot.
     }
     //draw the car park
     void draw();
@@ -79,29 +81,26 @@ public:
     void generate_vehicle();
     //move vehicle
 	void move_vehicle();
-    //delete the parking lot
+    //open and close the barrier at the entrance
 	void move_barrier(){
 		glColor3d(1, 0, 0);
 		glBegin(GL_LINES);
+		//One point fixed
 		glVertex2d(0, 0);
 		if (bar_open_time > 0)
 		{
-			if (bar_open_time > 70)
+			if (bar_open_time > 70)//open the barrier
 				glVertex2d(-25 * cos(PI / 40 * (90 - bar_open_time)), 25 * sin(PI / 40 * (90 - bar_open_time)));
-			else if (bar_open_time <= 20)
+			else if (bar_open_time <= 20)//close the barrier
 				glVertex2d(-25 * cos(PI / 40 * bar_open_time), 25 * sin(PI / 40 * bar_open_time));
 			else
-				glVertex2d(0, 25);
+				glVertex2d(0, 25);//keep open while a vehicle is entering
 			bar_open_time -= 1;
 		}
 		else
-			glVertex2d(-25, 0);
+			glVertex2d(-25, 0);//keep close while no vehicle arrives
 		glEnd();
 	}
-    void delete_parking_lot(){
-        delete_vehicle();
-        delete_slot();
-    }
 };
 
 #endif /* PARKING_LOT_H */
