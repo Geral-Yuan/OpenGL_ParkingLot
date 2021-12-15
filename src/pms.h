@@ -49,7 +49,7 @@ private:
     //exit
     void exit();
     //calculate price
-    double price_cal();
+    int price_cal();
 public:
     //constructor
     Vehicle(VEHICLE generated_type, slot assigned_slot);
