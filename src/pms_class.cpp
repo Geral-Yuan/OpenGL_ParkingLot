@@ -20,9 +20,12 @@ void delay(time_t n){
 ///private
 void Vehicle::enter(){time(&enter_time);} /*enter the lot = get time*/
 void Vehicle::exit(){time(&exit_time);} /*exit the lot = get time*/
-double Vehicle::price_cal(){
+int Vehicle::price_cal(){
     int price[4] = {PRICE_CAR,PRICE_VAN,PRICE_BIKE,PRICE_MOTOR};//price for an hour
-    return (exit_time-enter_time)*10.0f/60.0f*price[my_type];
+    if ((int)(exit_time-enter_time)==6)
+    return (int)((exit_time-enter_time)*10.0f/60.0f*price[my_type]);
+    else
+    return (int) ((int)((exit_time-enter_time)*10.0f/60.0f+1)*price[my_type]);
 }/* price calculation */
 
 ///public
@@ -51,7 +54,7 @@ void Vehicle::exit_print(){
     std::cout << "----------Departure Ticket----------" << std::endl;
     std::cout << "Time spent in the parking lot: " << (exit_time-enter_time)/6.0f << " hours;" << std::endl;
     std::cout << "Type of vehicle: " << vehicle[my_type] << ";" << std::endl;
-    std::cout << "Price: " << price_cal() << "¥;" << std::endl;
+    std::cout << "Price: " << price_cal() << " RMB;" << std::endl;
     std::cout << std::endl;
 }/* print exit ticket*/
 
@@ -119,10 +122,10 @@ void Parking_lot::PrintInfo(){
     delay(3);
     std::cout << std::endl << "[WELCOME TO THE PARKING LOT MANAGEMENT SYSTEM]" << std::endl;
     std::cout << "TOTAL FLOOR: " << floor << std::endl;
-    std::cout << "SLOTS FOR CARS: " << Car_slot.size() << "; Price Per hour: "<< PRICE_CAR << "¥/hr" << std::endl;
-    std::cout << "SLOTS FOR VANS: " << Van_slot.size() << "; Price Per hour: "<< PRICE_VAN << "¥/hr" << std::endl;
-    std::cout << "SLOTS FOR BIKES: " << Bike_slot.size() << "; Price Per hour: "<< PRICE_BIKE << "¥/hr" <<std::endl;
-    std::cout << "SLOTS FOR MOTORS: " << Motor_slot.size() << "; Price Per hour: "<< PRICE_MOTOR << "¥/hr" << std::endl;
+    std::cout << "SLOTS FOR CARS: " << Car_slot.size() << "; Price Per hour: "<< PRICE_CAR << " RMB/hr" << std::endl;
+    std::cout << "SLOTS FOR VANS: " << Van_slot.size() << "; Price Per hour: "<< PRICE_VAN << " RMB/hr" << std::endl;
+    std::cout << "SLOTS FOR BIKES: " << Bike_slot.size() << "; Price Per hour: "<< PRICE_BIKE << " RMB/hr" <<std::endl;
+    std::cout << "SLOTS FOR MOTORS: " << Motor_slot.size() << "; Price Per hour: "<< PRICE_MOTOR << " RMB/hr" << std::endl;
     time(&start_time);
     std::cout << "SIMULATION START TIME: " << ctime(&start_time) << std::endl;
 } /* information print */

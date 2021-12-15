@@ -55,6 +55,32 @@ Liu Jiaren finished part1 of README and Yuan Jiale finished part2 of README.
 
 ### Part 1
 
+- This part is a general parking place. Four kind of vehicles -- car, van, motor and bike can enter this parking area.
+
+- We have two mode for the user to run, you will be asked to choose one mode when you run part 1.
+
+- The first mode is the demo mode, which means the floor number and slot number of each floors are all randomly defined in the beginning.
+
+- In the second mode. the user can input the floor number and the slot number every slot.
+
+- Different types of vehicles need to pay with different price, and this will be shown when the program start.
+
+- The price system is similar to the real life, which means that if you park for 1.5hr, you have to pay for 2hr's parking fee.
+
+- In this system, we just set one second as ten minutes.
+
+- The start time will be set up as the time the user start the program, and then the time system will add 10 minutes every second.
+
+- Every second, a new vehicle will be generated if there is such an empty slot to park it, and the program will check whether there is vehicles to leave the parking area.
+
+- Every slot has its own tpye of vehicle to park, which means that different types of vehicle won't be sent to the same slot.
+
+- The enter ticket will be printed when the vehicle enter, and it will show the entertime, the type of vehicle, the slot it will park to.
+
+- The departure ticket will be print when a vehicle leaves, and the parking time, the price, the type of vehicle will be printed.
+
+- After 60 seconds, which means 10 hours in the program, the program will automaticly stop.
+
 ### Part 2
 
 - Unless all the slots are occupied, vehicles will randomly generated after each period of time at the entrance of the parking lot, except teleporters. The barrier at the entrance will open for these vehicles and close after they enter. Each vehicle will randomly choose a slot and move smoothly to the slot before it smoothly reverse into the slot.
