@@ -285,7 +285,7 @@ void Parking_lot::Checkout_Veh(){
 }/* checkout vehicles */
 
 void Parking_lot::draw(){
-    std::cout << std::endl << "------THE PARKING AREA------" << std::endl;
+    std::cout << "------THE PARKING AREA------" << std::endl;
     std::cout << "Car slots:";
     type_draw(Car_slot);
     std::cout << "Van slots:";

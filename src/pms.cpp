@@ -23,8 +23,13 @@ int main() {
     time(&cur_time);
     //main loop
     while(cur_time-start_time <= sec){
-        my_park.Generate_Vehicle();
+        if(rand()%10 > 6)
+            my_park.Generate_Vehicle();
         my_park.Checkout_Veh();
+        time_t draw_time;
+        time(&draw_time);
+        time_t tmp = (draw_time-start_time)*(time_t)600+start_time;
+        std::cout << std::endl << "Current time: " << ctime(&tmp)<< std::endl;
         my_park.draw();
         delay(1);
         time(&cur_time);

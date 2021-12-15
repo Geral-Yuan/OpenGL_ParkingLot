@@ -66,7 +66,7 @@ Liu Jiaren finished **README** of **[PART1]PMS** and Yuan Jiale finished "README
 - The price system is similar to the **real life**, which means that if you ***park for 1.5hr, you have to pay for 2hr's parking fee***.
 - The simulation will start in **3 SECONDS** after the setup is done.
 - The **start time** will be **set up** as **the time the user start the program**, and then the time system will add 10 minutes every second.
-- ***Every second***, a new vehicle will be **generated** if there is such an **empty** slot to park it, and the program will check whether there is vehicles to leave the parking area.
+- ***Every second*** in a **RANDOM MANNER**, a new vehicle might be **generated** if there is such an **empty** slot to park it (else a reject message will be printed), and the program will check whether there is vehicles to leave the parking area.
 - Every slot has its **own type** of vehicle to park, which means that different types of vehicle won't be sent to the same slot.
 - The enter ticket will be printed when the vehicle enter, and it will show the entertime, the type of vehicle, the slot it will park to.
 - The departure ticket will be print when a vehicle leaves, and the parking time, the price, the type of vehicle will be printed.
