@@ -45,13 +45,33 @@ All along the project, meet with your teammates on a regular basis and discuss y
 - Gan hanyu
 - Liu Jiaren
 
-Liu Yiming and Yuan Jiale finished part 2--interstellar parking lot and give some proposals on part 1.
+Liu Yiming and Yuan Jiale finished **[PART2] IPA**--interstellar parking lot and offered some proposals on **[PART1]PMS**.
 
-Gan hanyu and Liu Jiale designed and worked on part 1--regular parking lot and later Liu Yiming finished it.
+Gan hanyu and Liu Jiaren designed and worked on **[PART1]PMS**--regular parking lot and later Liu Yiming finished it.
+
+Liu Jiaren finished **README** of **[PART1]PMS** and Yuan Jiale finished "README" of **[PART2]IPA** of README.
 
 ## Description of the project
 
 ### Part 1
+
+- This part is a **GENERIC PARKING LOT**. 
+- Four kinds of vehicles -- ***car***, ***van***, ***motor*** and ***bike*** can enter this parking area.
+- The user is expected to run the program directly with **NO FLAG** after compilation.
+- The user is expected to decide the total **SIMULATION TIME** (in seconds and   1 seconds in real equals 10 minutes in the simulation)
+- We have **TWO MODES** for the user to run, you will be asked to choose one mode when you run part 1.
+  - **[PRESS 1]** for the ***FIRST*** mode, which is the **DEMO MODE** and means the floor number (*2~4*) and slot number (*4~12*) of each floors are all randomly defined in the beginning.
+  - **[PRESS 2]** for the **SECOND** mode, in which the **USER** can ***input*** the floor number and the slot number every floor to ***to build his own parking lot***.
+- **Different types** of vehicles need to pay with **different price**, and this will be shown when the program start.
+- The price system is similar to the **real life**, which means that if you ***park for 1.5hr, you have to pay for 2hr's parking fee***.
+- The simulation will start in **3 SECONDS** after the setup is done.
+- The **start time** will be **set up** as **the time the user start the program**, and then the time system will add 10 minutes every second.
+- ***Every second*** in a **RANDOM MANNER**, a new vehicle might be **generated** if there is such an **empty** slot to park it (else a reject message will be printed), and the program will check whether there is vehicles to leave the parking area.
+- Every slot has its **own type** of vehicle to park, which means that different types of vehicle won't be sent to the same slot.
+- The enter ticket will be printed when the vehicle enter, and it will show the entertime, the type of vehicle, the slot it will park to.
+- The departure ticket will be print when a vehicle leaves, and the parking time, the price, the type of vehicle will be printed.
+- Every second, a **graph** showing the parking area will be draw with **"| * |"** means the slot is **occupied** while **"|   |"** means it's **empty**. 
+- After the time **specified by the user**, the program will **automaticly stop**.
 
 ### Part 2
 
@@ -93,7 +113,7 @@ Gan hanyu and Liu Jiale designed and worked on part 1--regular parking lot and l
 
 ### Bugs
 
-### Something to improved
+### Something to be improved
 
 ## Function introduction
 
