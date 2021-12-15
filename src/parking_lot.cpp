@@ -47,31 +47,36 @@ void single_park::generate_vehicle()
 }
 void single_park::move_vehicle()
 {
+	//iterate through the vector of vehicles
 	vector<Vehicle *>::iterator pr;
 	for (pr = all_vehicles.begin(); pr != all_vehicles.end(); pr++)
 	{
+		//Get its status
 		status_quo status = (*pr)->Getstatus();
+		//move it if not parked
 		if (status != PARK)
 		{
+			//set three arrays respectively for steps, angles and velocities of each status
 			int step[7] = {50, 24, 20 * slot_num / 2, 48, 20 * ((*pr)->Getslot() % (slot_num / 2)) + 25, 24, 10};
 			double theta[7] = {0, -PI / 48, 0, PI / 48, 0, PI / 48, 0};
 			double v[7] = {1, 30 * sin(PI / 96), 1, 30 * sin(PI / 96), 1, -30 * sin(PI / 96), -1};
-			if ((*pr)->Getstep() > 0)
+			if ((*pr)->Getstep() > 0)//keep move under the current status
 			{
 				(*pr)->move(v[status]);
 				(*pr)->rotate(theta[status]);
 				(*pr)->Setstep((*pr)->Getstep() - 1);
 			}
-			else
+			else//change the status and reset the steps
 			{
 				(*pr)->Changestatus(slot_num);
 				(*pr)->Setstep(step[(*pr)->Getstatus()]);
 			}
 		}
-		// cout << "x: " << (*pr)->getAnchor().getX() << " y: " <<(*pr)->getAnchor().getY() <<  endl;
+		// cout << "x: " << (*pr)->getAnchor().getX() << " y: " <<(*pr)->getAnchor().getY() <<  endl; (for debug)
 		(*pr)->draw();
 	}
 }
+//delete all the vehicles generated
 void single_park::delete_vehicle()
 {
 	vector<Vehicle *>::iterator pr;
